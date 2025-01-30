@@ -1,8 +1,3 @@
-hearts = 5
-xp = 0
-level = 0
-
-# Patient(name, age, condition, blood_type, allergy)
 class Patient:
 
     # Instantiating object
@@ -29,7 +24,6 @@ class Patient:
         print(f'Blood type : {self.blood_type if self.isRevealed['blood_type'] else '?????????'}')
         print(f'allergy : {self.allergy if self.isRevealed['allergy'] else '?????????'}')
 
-  
 patient1 = Patient('Moana binti Drake', 12, 'Anaemic', 'A', 'peanut butter')
 patient2 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'B', 'Roses')
 patient3 = Patient('Baby Boss', 1, 'Fell from bed', 'O', 'Eggs')
@@ -37,12 +31,27 @@ patient4 = Patient('Suka binti Dessert', 45, 'Diabetes', 'B', 'None')
 patient5 = Patient('Bob', 60, 'Backache', 'AB', 'None')
             
 patients = [patient1, patient2, patient3, patient4, patient5]
-for patient in patients:
-    patient.printProfile()
-    print('*************************************************************')
 
-# Quiz(question, answer, hint, exp) 
+class Player:
+    def __init__(self, name, xp, level, hearts):
+        self.name = name
+        self.xp = xp
+        self.level = level
+        self.hearts = hearts
+        
 
+    # convert player data to json to save progress
+    def to_dict(self):
+        pass
+    # convert saved json file to object
+    def from_dict(self):
+        pass
+
+name = input("Hi there! Mind telling us your name? :    ")
+player = Player(name, 0, 1, 5)
+
+
+  
 # INFO
 print("""
 # ***********************************************************************************************************************************************************************
