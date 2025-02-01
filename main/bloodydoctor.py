@@ -88,11 +88,28 @@ class Quiz:
 
 class Game:
     games = ['Word search', 'Crossword', 'TicTacToe']
-    def printGameOptions():
-        print(Game.games)
+    
+    # Display game options
+    @classmethod
+    def printGameOptions(cls):
+        for i, game in enumerate(cls.games):
+            print(f'{i+1}. {game}')
 
-    def executeGame(game):
-        pass
+    # Execute game based on user's input
+    @classmethod
+    def executeGame(cls, index):
+        if 0 <= index <= len(cls.games):
+            print(f'Playing {cls.games[index-1]}')
+        else:
+            print('Invalid choice.')
+            
+            
+        if index == 1:
+            WordSearchV2.execute()
+        if index == 2:
+            CrosswordPuzzle.execute()
+        if index == 3:
+            tictactoe.play_game()
 
 # Function to print intro
 def printIntro(name):
@@ -222,9 +239,11 @@ for i in range(len(questionSet1)):
     hint = input("Would you like to play minigame and get a hint?[y/n] : ")
     
     if hint == "y":
-        CrosswordPuzzle.execute()
-        # Execute minigames
-
+        Game.printGameOptions()
+        index = int(input(f'Choose the minigame you would like to play![1 - {len(Game.games)}] :'))
+        Game.executeGame(index)
+        
+        
     answer = input("Answer : ")
     if quiz1.checkAnswer(i, answer):
         print("Correct!")
