@@ -87,4 +87,3 @@ def play_game():
             print("It's a tie!")
             break
 
-play_game()

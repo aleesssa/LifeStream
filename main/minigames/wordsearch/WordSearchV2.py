@@ -374,7 +374,7 @@ def ws4():
     return check, initial  # return amount of points deducted and the supposed amount of points to get
 
 # to check if the points accumulated are enough to get hints
-def reward():
+def reward(check, initial):
     time.sleep(2)
     print('\nYour final points are: \033[0;33m', check, '\033[0;30m')
     if check == initial:
@@ -385,9 +385,12 @@ def reward():
         print("\n\033[0;33mUnfortunately, you didn't find all words correctly.")
         print("You won't be getting any hints for now.\033[0;30m")
 
-wsInstructions() # display instructions
-diffQs = [ws1, ws2, ws3, ws4] # putting the different possible questions in a list
-check, initial = random.choice(diffQs)() # choosing random questions from the list and setting the return value to variable 'check' and 'initial'
-reward() # check points accumulated
 
-# word search game end
+
+def execute():
+    wsInstructions() # display instructions
+    diffQs = [ws1, ws2, ws3, ws4] # putting the different possible questions in a list
+    check, initial = random.choice(diffQs)() # choosing random questions from the list and setting the return value to variable 'check' and 'initial'
+    reward(check, initial) # check points accumulated
+
+    # word search game end

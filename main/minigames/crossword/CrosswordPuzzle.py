@@ -2344,8 +2344,11 @@ def cp3(): #question 3
         else: #if other characters or numbers given, a message to enter the right number will display
             print('Please enter a number from 1 to 3.')
 
-cpInstructions() #display instructions
-diffQs = [cp1, cp2, cp3] #put all possible questins in a list and assigning it to a variable
-random.choice(diffQs)() #choosing a random question from the list
 
-# crossword puzzle end
+def execute():
+    cpInstructions() #display instructions
+    diffQs = [cp1, cp2, cp3] #put all possible questins in a list and assigning it to a variable
+    random.choice(diffQs)() #choosing a random question from the list
+
+    # crossword puzzle end
+    

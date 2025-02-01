@@ -1,4 +1,6 @@
 from minigames.crossword import CrosswordPuzzle
+from minigames.tictactoe import tictactoe
+from minigames.wordsearch import WordSearchV2
 
 
 class Player:
@@ -213,14 +215,14 @@ printIntro(player.name) # INTRO
 
 patient1.printProfile() # Print patient's profile
 
-for i in questionSet1:
+for i in range(len(questionSet1)):
     
     quiz1.printQuiz(i)
     
     hint = input("Would you like to play minigame and get a hint?[y/n] : ")
     
     if hint == "y":
-        print(quiz1.getHint(i))
+        CrosswordPuzzle.execute()
         # Execute minigames
 
     answer = input("Answer : ")
