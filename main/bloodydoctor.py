@@ -1,6 +1,4 @@
-from ..minigames.crossword import CrosswordPuzzle
-from ..minigames.tictactoe import tictactoe
-from ..minigames.wordsearch import WordSearchV2
+from minigames.crossword import CrosswordPuzzle
 
 
 class Player:
@@ -215,7 +213,7 @@ printIntro(player.name) # INTRO
 
 patient1.printProfile() # Print patient's profile
 
-for i in range(5):
+for i in questionSet1:
     
     quiz1.printQuiz(i)
     
