@@ -100,8 +100,8 @@ def play_game():
     print("It's a tie!")
 
 # Ask if the player wants to play again
-    again = input("Do you want to play again? (yes/no): ").lower().strip()
-    if again != "yes":
+    again = input("Do you want to play again? (y/n): ").lower().strip()
+    if again != "y":
          print("Thanks for playing! 👋")
          break
 
