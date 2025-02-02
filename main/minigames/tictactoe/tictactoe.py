@@ -1,3 +1,5 @@
+import random
+
 # Define the board and the players
 board = [" " for _ in range(9)]
 human = "X"
@@ -38,6 +40,12 @@ def minimax(board, depth, is_maximizing):
 
 # AI Move
 def best_move(board):
+     # 30% chance to make a random move instead of perfect move
+    if random.random() < 0.3:
+        available_moves = [i for i in range(9) if board[i] == " "]
+        return random.choice(available_moves)
+    
+    # Otherwise, use  Minimax to find the best move
     best_val = -float('inf')
     move = -1
     for i in range(9):
@@ -57,22 +65,27 @@ def print_board(board):
         if i < 6:
             print("-" * 5)
 
+def reset_board():
+    return [" " for _ in range(9)]
+
 # Main game loop
 def play_game():
+  while True:
+    board = reset_board()
     while " " in board:
         # Human's turn
         print_board(board)
-        move = int(input("Enter your move (0-8): "))
+        move = int(input("Enter your move (1-9): "))-1
         if board[move] == " ":
             board[move] = human
         else:
-            print("Invalid move!")
+            print("Invalid move! Try again.")
             continue
         
         if check_winner(board, human):
             print_board(board)
-            print("You win!")
-            break
+            print("You win!🎉")
+            return # Ends the game if win
         
         # Computer's turn
         if " " in board:
@@ -81,9 +94,15 @@ def play_game():
             if check_winner(board, computer):
                 print_board(board)
                 print("Computer wins! You won't be getting any hints for now.")
-                break
-        else:
-            print_board(board)
-            print("It's a tie!")
-            break
+                return
+        
+    print_board(board)
+    print("It's a tie!")
 
+# Ask if the player wants to play again
+    again = input("Do you want to play again? (y/n): ").lower().strip()
+    if again != "y":
+         print("Thanks for playing! 👋")
+         break
+
+play_game()
