@@ -1,9 +1,12 @@
+import random
 from minigames.crossword import CrosswordPuzzle
 from minigames.tictactoe import tictactoe
 from minigames.wordsearch import WordSearchV2
 
 
 class Player:
+
+    
     def __init__(self, name, xp, level, hearts):
         self.name = name
         self.xp = xp
@@ -14,6 +17,16 @@ class Player:
         print(f'Hearts = {self.hearts}')
         print(f'Level = {self.level}')
         print(f'XP = {self.xp}')
+
+    def xpToLevelUp(self):   
+        xpToLevelUp = {
+        1 : 50,
+        2 : 125,
+        3 : 225,
+        4 : 350,
+        5 : 500
+         }
+        return xpToLevelUp[self.level]
 
     # convert player data to json to save progress
     def to_dict(self):
@@ -66,9 +79,17 @@ class Quiz:
         # Print question
         print(self.questionSet[n]['question'])
         
+        
         # Print answer choices
         for i, answer in enumerate(answerChoices):
-            print(f'{Quiz.intToLetter(i)}. {answer}')
+            intToLetter = lambda x: chr(ord("A") + i) # Convert int to letter for MCQ
+            print(f'{intToLetter(i)}. {answer}')
+        
+    # def randomizeChoices(self, n):
+    #     # randomize choices position 
+    #     randomizedChoices = random.choices(self.questionSet[n]['answerChoices'])
+        
+    #     pass
         
     def getHint(self, n):
         return self.questionSet[n]['hint']
@@ -78,13 +99,13 @@ class Quiz:
             return True
         else:
             return False
-
-    # Method to return corresponding letter to an integer. 
-    @staticmethod
-    def intToLetter(i):
-        letters = ['A', 'B', 'C', 'D']
+    
+    def revealInfo(self, patient, index):
+        patient.isRevealed[self.questionSet[index]['revealedInfo']] = True
         
-        return letters[i]
+    # choose question randomly
+    def randomize(self):
+        return random.randint(0, len(self.questionSet) - 1)
 
 class Game:
     games = ['Word search', 'Crossword', 'TicTacToe']
@@ -111,6 +132,53 @@ class Game:
         if index == 3:
             tictactoe.play_game()
 
+# Function for each level
+def startLevel(patient, quiz):
+    patient.printProfile() # Print patient's profile
+
+    # Loop through quiz set 1
+    while len(quiz.questionSet) > 0: #makes sure player answers all the question correctly before proceeding to next patient
+        index = quiz.randomize() # Choose random question from question set
+        
+        # Display question to player
+        quiz.printQuiz(index)
+        
+        hint = input("Would you like to play minigame and get a hint?[y/n] : ")
+        
+        if hint == "y":
+            Game.printGameOptions()
+            index = int(input(f'Choose the minigame you would like to play![1 - {len(Game.games)}] :'))
+            Game.executeGame(index)
+            quiz.printQuiz(index)
+            
+        answer = input("Answer : ")
+        if quiz.checkAnswer(index, answer):
+            print("Correct!")
+            quiz.revealInfo(patient1, index) # Reveal patient's info according to the question answered
+            quiz.questionSet.pop(index) # Remove question from the list
+            player.xp += quiz.xp
+        else:
+            print("Incorrect.. don't you know your own patient?")
+            player.hearts -= 1
+            print(f'You currently have {player.hearts} hearts')
+
+        
+        if player.xp >= player.xpToLevelUp():
+            player.level += 1
+            print("You've leveled up!")
+    
+        
+        if player.hearts <= 0:
+            lose()
+            
+            
+        patient.printProfile()
+        
+# Execute when player loses (10 Hearts gone)
+def lose():
+    print("Your patient is dead. You should've paid more attention.")
+    exit()
+
 # Function to print intro
 def printIntro(name):
     print(f'''
@@ -120,7 +188,7 @@ You currently have 5 patients under your care.
 Treat your patients by answering questions related to them.
 You can play minigames to acquire hint that will help you answer the question.
 Answering correctly will gain you XP that will help you level up!
-However, if you answer the question wrong, 1 heart will be deducted from your 5 hearts.
+However, if you answer the question wrong, 1 heart will be deducted from your 10 hearts.
 Reaching zero hearts will kill your patient.
 Here comes your first patient~
 ''')
@@ -154,39 +222,44 @@ patients = [patient1, patient2, patient3, patient4, patient5]
 questionSet1 = [
     {
         'question' : "What is your patient's age?",
-        'answer' : 'A',
         'answerChoices' : [12, 30, 50, 100],
+        'answer' : 'A',
+        'revealedInfo' : 'age',
         'hint' : 'Kids this age usually start going through puberty.'
     },
     {
         'question' : "What illness does your patient have?",
-        'answer' : 'C',
         'answerChoices' : ['Diabetes', 'Heart attack', 'Anaemic', 'Heat stroke'],
+        'answer' : 'C',
+        'revealedInfo' : 'condition',
         'hint' : 'She lacks red'
     },
     {
-        'question' : "What is your patient's age?",
+        'question' : "What is your patient's blood type?",
+        'answer' : 'B',
+        'answerChoices' : ['B', 'A', 'AB', 'O'],
+        'revealedInfo' : 'blood_type',
+        'hint' : 'This blood type is rare. Only 6% of population has it.'
+    },
+    {
+        'question' : "Does your patient have any allergy?",
         'answer' : 'A',
-        'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
+        'answerChoices' : ['Peanut butter', 'Seafood', 'Dust', 'None'],
+        'revealedInfo' : 'allergy',
+        'hint' : 'Sweet.'
     },
     {
         'question' : "What is your patient's age?",
         'answer' : 'A',
         'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
-    },
-    {
-        'question' : "What is your patient's age?",
-        'answer' : 'A',
-        'answerChoices' : [12, 30, 50, 100],
+        'revealedInfo' : 'age',
         'hint' : 'Kids this age usually start going through puberty.'
     }
 ]
 questionSet2 = [
     {
         'question' : "What is your patient's age?",
-        'answer' : 12,
+        'answer' : 'A',
         'answerChoices' : [12, 30, 50, 100],
         'hint' : 'Kids this age usually start going through puberty.'
     }
@@ -216,7 +289,11 @@ questionSet5 = [
     }
 ]
     
-quiz1 = Quiz(questionSet1, 10)
+quiz1 = Quiz(questionSet1, xp=10)
+quiz2 = Quiz(questionSet2, xp=15)
+quiz3 = Quiz(questionSet3, xp=20)
+quiz4 = Quiz(questionSet4, xp=25)
+quiz5 = Quiz(questionSet5, xp=30)
 
 # Print students info
 printInfo()
@@ -226,32 +303,23 @@ printInfo()
 
 # Get player's name and create player instance
 name = input("Hi there! Mind telling us your name? : ").capitalize()
-player = Player(name, 0, 1, 5)
-
+player = Player(name, xp=0, level=1, hearts=10)
 printIntro(player.name) # INTRO
 
-patient1.printProfile() # Print patient's profile
+# Start level 1
+startLevel(patient1, quiz1)
 
-for i in range(len(questionSet1)):
-    
-    quiz1.printQuiz(i)
-    
-    hint = input("Would you like to play minigame and get a hint?[y/n] : ")
-    
-    if hint == "y":
-        Game.printGameOptions()
-        index = int(input(f'Choose the minigame you would like to play![1 - {len(Game.games)}] :'))
-        Game.executeGame(index)
+# Start level 2
+startLevel(patient2, quiz2)
         
-        
-    answer = input("Answer : ")
-    if quiz1.checkAnswer(i, answer):
-        print("Correct!")
-        player.xp += quiz1.xp
-    else:
-        print("Incorrect.. don't you know your own patient?")
-        player.hearts -= 1
+# Start level 3
+startLevel(patient3, quiz3)
 
+# Start level 4
+startLevel(patient4, quiz4)
     
-    
+# Start level 5
+startLevel(patient5, quiz5)
+
+
 player.printStatus()
