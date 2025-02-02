@@ -5,8 +5,6 @@ from minigames.wordsearch import WordSearchV2
 
 
 class Player:
-
-    
     def __init__(self, name, xp, level, hearts):
         self.name = name
         self.xp = xp
@@ -37,10 +35,11 @@ class Player:
     
 class Patient:
     # Instantiating object
-    def __init__(self, name, age, condition, blood_type, allergy, isRevealedAge = False, isRevealedCondition = False, isRevealedBloodType = False, isRevealedAllergy = False):
+    def __init__(self, name, age, condition, symptom, blood_type, allergy, isRevealedAge = False, isRevealedCondition = False, isRevealedSymptom = False, isRevealedBloodType = False, isRevealedAllergy = False):
         self.name = name
         self.age = age
         self.condition = condition
+        self.symptom = symptom
         self.blood_type = blood_type
         self.allergy = allergy    
         
@@ -48,6 +47,7 @@ class Patient:
         self.isRevealed = {
         'age' : isRevealedAge,
         'condition' : isRevealedCondition,
+        'symptom' : isRevealedSymptom,
         'blood_type' : isRevealedBloodType,
         'allergy' : isRevealedAllergy
         }
@@ -210,25 +210,25 @@ def printInfo():
 
 
 # Create Patient instances   
-patient1 = Patient('Moana binti Drake', 12, 'Anaemic', 'A', 'peanut butter')
-patient2 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'B', 'Roses')
-patient3 = Patient('Baby Boss', 1, 'Fell from bed', 'O', 'Eggs')
+patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter')
+patient2 = Patient('Baby Boss', 1, 'Fell from bed', 'Swelling on the head', 'O+', 'Eggs')
+patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses', isRevealedAge=True)
 patient4 = Patient('Suka binti Dessert', 45, 'Diabetes', 'B', 'None')
-patient5 = Patient('Bob', 60, 'Backache', 'AB', 'None')
+patient5 = Patient('Nisreen Athirah', 22, 'Eczema', '', 'O', 'None')
             
 patients = [patient1, patient2, patient3, patient4, patient5]
 
 # Quiz section
 questionSet1 = [
     {
-        'question' : "What is your patient's age?",
+        'question' : "How old is your patient?",
         'answerChoices' : [12, 30, 50, 100],
         'answer' : 'A',
         'revealedInfo' : 'age',
         'hint' : 'Kids this age usually start going through puberty.'
     },
     {
-        'question' : "What illness does your patient have?",
+        'question' : "What condition does your patient have?",
         'answerChoices' : ['Diabetes', 'Heart attack', 'Anaemic', 'Heat stroke'],
         'answer' : 'C',
         'revealedInfo' : 'condition',
@@ -249,27 +249,86 @@ questionSet1 = [
         'hint' : 'Sweet.'
     },
     {
-        'question' : "What is your patient's age?",
-        'answer' : 'A',
-        'answerChoices' : [12, 30, 50, 100],
-        'revealedInfo' : 'age',
-        'hint' : 'Kids this age usually start going through puberty.'
+        'question' : "What symptom does the patient primarily show?",
+        'answer' : 'D',
+        'answerChoices' : ['Swollen ankle', 'Irritated skin', 'High fever', 'Fatigue'],
+        'revealedInfo' : 'symptom',
+        'hint' : 'Tired.'
     }
 ]
+
 questionSet2 = [
     {
-        'question' : "What is your patient's age?",
+        'question' : "What happened to Baby Boss?",
         'answer' : 'A',
-        'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
+        'answerChoices' : ['Fell from bed', 'Choked on a food', 'Allergy rection', 'Cried too much'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Happened when he was sleeping.'
+    },
+    {
+        'question' : "What symptom is the baby showing?",
+        'answer' : 'D',
+        'answerChoices' : ['B+ donor', 'O+ donor', 'A- Donor', 'O- donor'],
+        'revealedInfo' : 'blood_type',
+        'hint' : "Jaehyun's blood type is B-"
+    },
+    {
+        'question' : "What symptom does Jaehyun show?",
+        'answer' : 'A',
+        'answerChoices' : ['Pale skin.', 'High fever', 'Joint pain', 'Rash'],
+        'revealedInfo' : 'symptom',
+        'hint' : "This condition affects the body's ability to carry oxygen efficiently"
+    },
+    {
+        'question' : "What is the best diet for Jaehyun",
+        'answer' : 'B',
+        'answerChoices' : ['Dairy products and white rice', 'Lean red meat and vitamin C-rich fruits', 'Fast food and sugary drinks', 'Seafood, whole grains and coffee'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Jaehyun often feels tired and dizzy.'
+    },
+    {
+        'question' : "As Jaehyun's doctor, what should you avoid placing in his hospital room?",
+        'answer' : 'C',
+        'answerChoices' : ['A bowl of fresh fruit', 'A humidifier', 'A scented rose bouquet', 'A book and a cup of tea'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Jaehyun enjoys nature but avoids certain flowers because they make him feel unwell.'
     }
 ]
 questionSet3 = [
     {
-        'question' : "What is your patient's age?",
-        'answer' : 12,
-        'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
+        'question' : "Is Jaehyun eligible for blood donation?",
+        'answer' : 'C',
+        'answerChoices' : ['Yes, his condition does not affect his eligibility.', 'Yes, as long as he drinks enough water.' ,'No, he has low hemoglobin levels.', 'No, but taking iron supplements right before donation makes him eligible.'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Jaehyun suffers from iron deficiency.'
+    },
+    {
+        'question' : "Who can donate blood to Jaehyun?",
+        'answer' : 'D',
+        'answerChoices' : ['B+ donor', 'O+ donor', 'A- Donor', 'O- donor'],
+        'revealedInfo' : 'blood_type',
+        'hint' : "Jaehyun's blood type is B-"
+    },
+    {
+        'question' : "What symptom does Jaehyun show?",
+        'answer' : 'A',
+        'answerChoices' : ['Pale skin.', 'High fever', 'Joint pain', 'Rash'],
+        'revealedInfo' : 'symptom',
+        'hint' : "This condition affects the body's ability to carry oxygen efficiently"
+    },
+    {
+        'question' : "What is the best diet for Jaehyun",
+        'answer' : 'B',
+        'answerChoices' : ['Dairy products and white rice', 'Lean red meat and vitamin C-rich fruits', 'Fast food and sugary drinks', 'Seafood, whole grains and coffee'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Jaehyun often feels tired and dizzy.'
+    },
+    {
+        'question' : "As Jaehyun's doctor, what should you avoid placing in his hospital room?",
+        'answer' : 'C',
+        'answerChoices' : ['A bowl of fresh fruit', 'A humidifier', 'A scented rose bouquet', 'A book and a cup of tea'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Jaehyun enjoys nature but avoids certain flowers because they make him feel unwell.'
     }
 ]
 questionSet4 = [
