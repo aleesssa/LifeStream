@@ -54,7 +54,7 @@ def play_game():
     print("🔀 Scrambled Word:", scrambled)
 
     while attempts > 0:
-        guess = input("🤔 Guess the word: ").lower()
+        guess = input("🤔 Guess the word: ").lower().strip()
         if guess == word.lower():
             print("🎉 Correct! You guessed the word!")
             return
