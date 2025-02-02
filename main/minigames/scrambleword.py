@@ -55,7 +55,7 @@ def play_game():
 
     while attempts > 0:
         guess = input("🤔 Guess the word: ").lower().strip()
-        if guess == word.lower():
+        if guess == word.lower().strip():
             print("🎉 Correct! You guessed the word!")
             return
         else:
