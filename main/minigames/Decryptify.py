@@ -290,18 +290,18 @@ def dExecute():
     elif play == fiveE or play == tenE:
         k5hint()  # prints this set of hints if the chosen message is msg five or ten
     # executing the ans() function to ask for input and assigning it to a variable
-    finAns = ans(oneE)
-    finAns = ans(twoE)
-    finAns = ans(threeE)
-    finAns = ans(fourE)
-    finAns = ans(fiveE)
-    finAns = ans(sixE)
-    finAns = ans(sevenE)
-    finAns = ans(eightE)
-    finAns = ans(nineE)
-    finAns = ans(tenE)
+    ans(oneE)
+    ans(twoE)
+    ans(threeE)
+    ans(fourE)
+    ans(fiveE)
+    ans(sixE)
+    ans(sevenE)
+    ans(eightE)
+    ans(nineE)
+    ans(tenE)
     # executing the reward() function to determine if user can get hints for main question
-    reward(finAns)
+    reward()
 
 def k1hint():  # function to print hints
     print('@ = the first letter of the alphabet')  #a
@@ -539,10 +539,10 @@ def ans(x):  # function to ask for input
             ansList.append(answer)  # appending answer to the list earlier
             i += 1  # add counter by 1
     finAns = ''.join(ansList)  # changing the list of answers into a string (a full sentence)
+    print('\nThe message that you decrypted is: ', finAns)  # print the answer given by user
     return finAns
 
 def reward(x):
-    print('\nThe message that you decrypted is: ', x)  # print the answer given by user
     if play == oneE:  # the following code will only execute if the chosen msg is oneE
         if ans(oneE) == oneD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
