@@ -2,7 +2,7 @@
 
 import time
 import random
-
+# setting the keys for encryption
 k1 = {'a': '@',
        'b': '6',
        'c': '(',
@@ -222,18 +222,19 @@ k5 = {'a': '%',
        'B': 'R',
        'D': 'A',
        '.': 'L'}
+# assigning the original messages to their variables
+oneD = "Donors who have donated 1 time are privileged to get free outpatient treatment and medical treatment excluding x-ray and surgical charges, and second-class wards for a period of 4 months."
+twoD = "Donors who have donated 2 times within 12 months are privileged to get free Hepatitis B prevention injections."
+threeD = "Donors who have donated 2 to 5 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 4 months."
+fourD = "Donors who have donated 6 to 10 times are privileged to get free 1-year outpatient treatment and second-class wards for a 6-month period."
+fiveD = "Donors who have donated 11 to 15 times are privileged to get free 2-year outpatient treatment and medical treatment, and second-class wards for a 1-year period."
+sixD = "Donors who have donated 16 to 20 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 3 years."
+sevenD = "Donors who have donated 21 to 30 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 3 years."
+eightD = "Donors who have donated 31 to 40 times are privileged to get free outpatient treatment and medical treatment, and first-class wards for a period of 4 years."
+nineD = "Donors who have donated 41 to 50 times are privileged to get free outpatient treatment and medical treatment, and first-class wards for a period of 6 years."
+tenD = "Donors who have donated over 50 times are privileged to get free outpatient treatment and first-class medical treatment and wards for 10 years, and second-class wards of life after 10 years in first-class ward."
 
-oneD = list("Donors who have donated 1 time are privileged to get free outpatient treatment and medical treatment excluding x-ray and surgical charges, and second-class wards for a period of 4 months.")
-twoD = list("Donors who have donated 2 times within 12 months are privileged to get free Hepatitis B prevention injections.")
-threeD = list("Donors who have donated 2 to 5 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 4 months.")
-fourD = list("Donors who have donated 6 to 10 times are privileged to get free 1-year outpatient treatment and second-class wards for a 6-month period.")
-fiveD = list("Donors who have donated 11 to 15 times are privileged to get free 2-year outpatient treatment and medical treatment, and second-class wards for a 1-year period.")
-sixD = list("Donors who have donated 16 to 20 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 3 years.")
-sevenD = list("Donors who have donated 21 to 30 times are privileged to get free outpatient treatment and medical treatment, and second-class wards for a period of 3 years.")
-eightD = list("Donors who have donated 31 to 40 times are privileged to get free outpatient treatment and medical treatment, and first-class wards for a period of 4 years.")
-nineD = list("Donors who have donated 41 to 50 times are privileged to get free outpatient treatment and medical treatment, and first-class wards for a period of 6 years.")
-tenD = list("Donors who have donated over 50 times are privileged to get free outpatient treatment and first-class medical treatment and wards for 10 years, and second-class wards of life after 10 years in first-class ward.")
-
+# encrypted messages are assigned to their variables
 oneE = k1['D']+k1['o']+k1['n']+k1['o']+k1['r']+k1['s']+k1[' ']+k1['w']+k1['h']+k1['o']+k1[' ']+k1['h']+k1['a']+k1['v']+k1['e']+k1[' ']+k1['d']+k1['o']+k1['n']+k1['a']+k1['t']+k1['e']+k1['d']+k1[' ']+k1['1']+k1[' ']+k1['t']+k1['i']+k1['m']+k1['e']+k1[' ']+k1['a']+k1['r']+k1['e']+k1[' ']+k1['p']+k1['r']+k1['i']+k1['v']+k1['i']+k1['l']+k1['e']+k1['g']+k1['e']+k1['d']+k1[' ']+k1['t']+k1['o']+k1[' ']+k1['g']+k1['e']+k1['t']+k1[' ']+k1['f']+k1['r']+k1['e']+k1['e']+k1[' ']+k1['o']+k1['u']+k1['t']+k1['p']+k1['a']+k1['t']+k1['i']+k1['e']+k1['n']+k1['t']+k1[' ']+k1['t']+k1['r']+k1['e']+k1['a']+k1['t']+k1['m']+k1['e']+k1['n']+k1['t']+k1[' ']+k1['a']+k1['n']+k1['d']+k1[' ']+k1['m']+k1['e']+k1['d']+k1['i']+k1['c']+k1['a']+k1['l']+k1[' ']+k1['t']+k1['r']+k1['e']+k1['a']+k1['t']+k1['m']+k1['e']+k1['n']+k1['t']+k1[' ']+k1['e']+k1['x']+k1['c']+k1['l']+k1['u']+k1['d']+k1['i']+k1['n']+k1['g']+k1[' ']+k1['x']+k1['-']+k1['r']+k1['a']+k1['y']+k1[' ']+k1['a']+k1['n']+k1['d']+k1[' ']+k1['s']+k1['u']+k1['r']+k1['g']+k1['i']+k1['c']+k1['a']+k1['l']+k1[' ']+k1['c']+k1['h']+k1['a']+k1['r']+k1['g']+k1['e']+k1['s']+k1[',']+k1[' ']+k1['a']+k1['n']+k1['d']+k1[' ']+k1['s']+k1['e']+k1['c']+k1['o']+k1['n']+k1['d']+k1['-']+k1['c']+k1['l']+k1['a']+k1['s']+k1['s']+k1[' ']+k1['w']+k1['a']+k1['r']+k1['d']+k1['s']+k1[' ']+k1['f']+k1['o']+k1['r']+k1[' ']+k1['a']+k1[' ']+k1['p']+k1['e']+k1['r']+k1['i']+k1['o']+k1['d']+k1[' ']+k1['o']+k1['f']+k1[' ']+k1['4']+k1[' ']+k1['m']+k1['o']+k1['n']+k1['t']+k1['h']+k1['s']+k1['.']
 twoE = k2['D']+k2['o']+k2['n']+k2['o']+k2['r']+k2['s']+k2[' ']+k2['w']+k2['h']+k2['o']+k2[' ']+k2['h']+k2['a']+k2['v']+k2['e']+k2[' ']+k2['d']+k2['o']+k2['n']+k2['a']+k2['t']+k2['e']+k2['d']+k2[' ']+k2['2']+k2[' ']+k2['t']+k2['i']+k2['m']+k2['e']+k2['s']+k2[' ']+k2['w']+k2['i']+k2['t']+k2['h']+k2['i']+k2['n']+k2[' ']+k2['1']+k2['2']+k2[' ']+k2['m']+k2['o']+k2['n']+k2['t']+k2['h']+k2['s']+k2[' ']+k2['a']+k2['r']+k2['e']+k2[' ']+k2['p']+k2['r']+k2['i']+k2['v']+k2['i']+k2['l']+k2['e']+k2['g']+k2['e']+k2['d']+k2[' ']+k2['t']+k2['o']+k2[' ']+k2['g']+k2['e']+k2['t']+k2[' ']+k2['f']+k2['r']+k2['e']+k2['e']+k2[' ']+k2['H']+k2['e']+k2['p']+k2['a']+k2['t']+k2['i']+k2['t']+k2['i']+k2['s']+k2[' ']+k2['B']+k2[' ']+k2['p']+k2['r']+k2['e']+k2['v']+k2['e']+k2['n']+k2['t']+k2['i']+k2['o']+k2['n']+k2[' ']+k2['i']+k2['n']+k2['j']+k2['e']+k2['c']+k2['t']+k2['i']+k2['o']+k2['n']+k2['s']+k2['.']
 threeE = k3['D']+k3['o']+k3['n']+k3['o']+k3['r']+k3['s']+k3[' ']+k3['w']+k3['h']+k3['o']+k3[' ']+k3['h']+k3['a']+k3['v']+k3['e']+k3[' ']+k3['d']+k3['o']+k3['n']+k3['a']+k3['t']+k3['e']+k3['d']+k3[' ']+k3['2']+k3[' ']+k3['t']+k3['o']+k3[' ']+k3['5']+k3[' ']+k3['t']+k3['i']+k3['m']+k3['e']+k3['s']+k3[' ']+k3['a']+k3['r']+k3['e']+k3[' ']+k3['p']+k3['r']+k3['i']+k3['v']+k3['i']+k3['l']+k3['e']+k3['g']+k3['e']+k3['d']+k3[' ']+k3['t']+k3['o']+k3[' ']+k3['g']+k3['e']+k3['t']+k3[' ']+k3['f']+k3['r']+k3['e']+k3['e']+k3[' ']+k3['o']+k3['u']+k3['t']+k3['p']+k3['a']+k3['t']+k3['i']+k3['e']+k3['n']+k3['t']+k3[' ']+k3['t']+k3['r']+k3['e']+k3['a']+k3['t']+k3['m']+k3['e']+k3['n']+k3['t']+k3[' ']+k3['a']+k3['n']+k3['d']+k3[' ']+k3['m']+k3['e']+k3['d']+k3['i']+k3['c']+k3['a']+k3['l']+k3[' ']+k3['t']+k3['r']+k3['e']+k3['a']+k3['t']+k3['m']+k3['e']+k3['n']+k3['t']+k3[',']+k3[' ']+k3['a']+k3['n']+k3['d']+k3[' ']+k3['s']+k3['e']+k3['c']+k3['o']+k3['n']+k3['d']+k3['-']+k3['c']+k3['l']+k3['a']+k3['s']+k3['s']+k3[' ']+k3['w']+k3['a']+k3['r']+k3['d']+k3['s']+k3[' ']+k3['f']+k3['o']+k3['r']+k3[' ']+k3['a']+k3[' ']+k3['p']+k3['e']+k3['r']+k3['i']+k3['o']+k3['d']+k3[' ']+k3['o']+k3['f']+k3[' ']+k3['4']+k3[' ']+k3['m']+k3['o']+k3['n']+k3['t']+k3['h']+k3['s']+k3['.']
@@ -245,11 +246,11 @@ eightE = k3['D']+k3['o']+k3['n']+k3['o']+k3['r']+k3['s']+k3[' ']+k3['w']+k3['h']
 nineE = k4['D']+k4['o']+k4['n']+k4['o']+k4['r']+k4['s']+k4[' ']+k4['w']+k4['h']+k4['o']+k4[' ']+k4['h']+k4['a']+k4['v']+k4['e']+k4[' ']+k4['d']+k4['o']+k4['n']+k4['a']+k4['t']+k4['e']+k4['d']+k4[' ']+k4['4']+k4['1']+k4[' ']+k4['t']+k4['o']+k4[' ']+k4['5']+k4['0']+k4[' ']+k4['t']+k4['i']+k4['m']+k4['e']+k4['s']+k4[' ']+k4['a']+k4['r']+k4['e']+k4[' ']+k4['p']+k4['r']+k4['i']+k4['v']+k4['i']+k4['l']+k4['e']+k4['g']+k4['e']+k4['d']+k4[' ']+k4['t']+k4['o']+k4[' ']+k4['g']+k4['e']+k4['t']+k4[' ']+k4['f']+k4['r']+k4['e']+k4['e']+k4[' ']+k4['o']+k4['u']+k4['t']+k4['p']+k4['a']+k4['t']+k4['i']+k4['e']+k4['n']+k4['t']+k4[' ']+k4['t']+k4['r']+k4['e']+k4['a']+k4['t']+k4['m']+k4['e']+k4['n']+k4['t']+k4[' ']+k4['a']+k4['n']+k4['d']+k4[' ']+k4['m']+k4['e']+k4['d']+k4['i']+k4['c']+k4['a']+k4['l']+k4[' ']+k4['t']+k4['r']+k4['e']+k4['a']+k4['t']+k4['m']+k4['e']+k4['n']+k4['t']+k4[',']+k4[' ']+k4['a']+k4['n']+k4['d']+k4[' ']+k4['f']+k4['i']+k4['r']+k4['s']+k4['t']+k4['-']+k4['c']+k4['l']+k4['a']+k4['s']+k4['s']+k4[' ']+k4['w']+k4['a']+k4['r']+k4['d']+k4['s']+k4[' ']+k4['f']+k4['o']+k4['r']+k4[' ']+k4['a']+k4[' ']+k4['p']+k4['e']+k4['r']+k4['i']+k4['o']+k4['d']+k4[' ']+k4['o']+k4['f']+k4[' ']+k4['6']+k4[' ']+k4['y']+k4['e']+k4['a']+k4['r']+k4['s']+k4['.']
 tenE = k5['D']+k5['o']+k5['n']+k5['o']+k5['r']+k5['s']+k5[' ']+k5['w']+k5['h']+k5['o']+k5[' ']+k5['h']+k5['a']+k5['v']+k5['e']+k5[' ']+k5['d']+k5['o']+k5['n']+k5['a']+k5['t']+k5['e']+k5['d']+k5[' ']+k5['o']+k5['v']+k5['e']+k5['r']+k5[' ']+k5['5']+k5['0']+k5[' ']+k5['t']+k5['i']+k5['m']+k5['e']+k5['s']+k5[' ']+k5['a']+k5['r']+k5['e']+k5[' ']+k5['p']+k5['r']+k5['i']+k5['v']+k5['i']+k5['l']+k5['e']+k5['g']+k5['e']+k5['d']+k5[' ']+k5['t']+k5['o']+k5[' ']+k5['g']+k5['e']+k5['t']+k5[' ']+k5['f']+k5['r']+k5['e']+k5['e']+k5[' ']+k5['o']+k5['u']+k5['t']+k5['p']+k5['a']+k5['t']+k5['i']+k5['e']+k5['n']+k5['t']+k5[' ']+k5['t']+k5['r']+k5['e']+k5['a']+k5['t']+k5['m']+k5['e']+k5['n']+k5['t']+k5[' ']+k5['a']+k5['n']+k5['d']+k5[' ']+k5['f']+k5['i']+k5['r']+k5['s']+k5['t']+k5['-']+k5['c']+k5['l']+k5['a']+k5['s']+k5['s']+k5[' ']+k5['m']+k5['e']+k5['d']+k5['i']+k5['c']+k5['a']+k5['l']+k5[' ']+k5['t']+k5['r']+k5['e']+k5['a']+k5['t']+k5['m']+k5['e']+k5['n']+k5['t']+k5[' ']+k5['a']+k5['n']+k5['d']+k5[' ']+k5['w']+k5['a']+k5['r']+k5['d']+k5['s']+k5[' ']+k5['f']+k5['o']+k5['r']+k5[' ']+k5['1']+k5['0']+k5[' ']+k5['y']+k5['e']+k5['a']+k5['r']+k5['s']+k5[',']+k5[' ']+k5['a']+k5['n']+k5['d']+k5[' ']+k5['s']+k5['e']+k5['c']+k5['o']+k5['n']+k5['d']+k5['-']+k5['c']+k5['l']+k5['a']+k5['s']+k5['s']+k5[' ']+k5['w']+k5['a']+k5['r']+k5['d']+k5['s']+k5[' ']+k5['o']+k5['f']+k5[' ']+k5['l']+k5['i']+k5['f']+k5['e']+k5[' ']+k5['a']+k5['f']+k5['t']+k5['e']+k5['r']+k5[' ']+k5['1']+k5['0']+k5[' ']+k5['y']+k5['e']+k5['a']+k5['r']+k5['s']+k5[' ']+k5['i']+k5['n']+k5[' ']+k5['f']+k5['i']+k5['r']+k5['s']+k5['t']+k5['-']+k5['c']+k5['l']+k5['a']+k5['s']+k5['s']+k5[' ']+k5['w']+k5['a']+k5['r']+k5['d']+k5['.']
 
-def delay(x):
+def delay(x):  #function to make the ecrypted messages appear letter by letter
     print('\n')
-    for char in x:
-        print(char, end='', flush=True)
-        time.sleep(.05)
+    for char in x:  # loop to keep printing the characters in the string
+        print(char, end='', flush=True)  # print one character at a time
+        time.sleep(.05)  # wait for .05 seconds, then repeat until no more character in the string
 
 def dExecute():
     # display instructions
@@ -270,26 +271,25 @@ def dExecute():
     print('\n\033[0;33m...Loading...\033[0;30m')
     time.sleep(2)
     print('\nHere is the encrypted text:-')
-    global msg
+    global msg  # putting all encrypted messages into a list
     msg = [oneE, twoE, threeE, fourE, fiveE, sixE, sevenE, eightE, nineE, tenE]
     global play
-    random.shuffle(msg)
-    play = msg.pop()
-    delay(play)
+    play = random.choice(msg)  # choosing a random message
+    delay(play)  # execute the function to print the encrypted message
     time.sleep(2)
     print('\nHere are the hints:-\n')
     time.sleep(1)
     if play == oneE or play == sixE:
-        k1hint()
+        k1hint()  # prints this set of hints if the chosen message is msg one or six
     elif play == twoE or play == sevenE:
-        k2hint()
+        k2hint()  # prints this set of hints if the chosen message is msg two or seven
     elif play == threeE or play == eightE:
-        k3hint()
+        k3hint()  # prints this set of hints if the chosen message is msg three or eight
     elif play == fourE or play == nineE:
-        k4hint()
+        k4hint()  # prints this set of hints if the chosen message is msg four or nine
     elif play == fiveE or play == tenE:
-        k5hint()
-    
+        k5hint()  # prints this set of hints if the chosen message is msg five or ten
+    # executing the ans() function to ask for input and assigning it to a variable
     finAns = ans(oneE)
     finAns = ans(twoE)
     finAns = ans(threeE)
@@ -300,10 +300,10 @@ def dExecute():
     finAns = ans(eightE)
     finAns = ans(nineE)
     finAns = ans(tenE)
-
+    # executing the reward() function to determine if user can get hints for main question
     reward(finAns)
 
-def k1hint():
+def k1hint():  # function to print hints
     print('@ = the first letter of the alphabet')  #a
     print('! = is a word on its own, and it represents yourself')  #i
     print('# = students hate to see it on their exam paper')  #f
@@ -348,7 +348,7 @@ def k1hint():
     print("` = a character that shares a house with the 'less than' symbol")  #,
     print('? = the seventh letter of the alphabet')  #g
 
-def k2hint():
+def k2hint():  # function to print hints
     print('~ = the sound snakes make')  #s
     print('! = there are ___ months in half of a year')  #6
     print('@ = in English, this letter sometimes sounds like the letter k')  #c
@@ -393,7 +393,7 @@ def k2hint():
     print('} = b')
     print('? = f')
 
-def k3hint():
+def k3hint():  # function to print hints
     print('~ = 0')
     print('! = g')
     print('@ = h')
@@ -438,7 +438,7 @@ def k3hint():
     print('} = -')
     print('? = 4')
 
-def k4hint():
+def k4hint():  # function to print hints
     print('~ = h')
     print('! = o')
     print('@ = e')
@@ -483,7 +483,7 @@ def k4hint():
     print('} = p')
     print('? = x')
 
-def k5hint():
+def k5hint():  # function to print hints
     print('~ = ,')
     print('! = j')
     print('@ = b')
@@ -528,23 +528,23 @@ def k5hint():
     print('} = o')
     print('? = n')
 
-def ans(x):
-    ansList = []
-    if play == x:
-        i = 0
-        while i < len(list(x)):
-            symbol = list(x)[i]
+def ans(x):  # function to ask for input
+    ansList = []  # an empty list to append the answers later
+    if play == x:  # the following codes will only execute if the chosen message from earlier is the same as the argument x
+        i = 0  # setting counter to 0
+        while i < len(list(x)):  # loop to keep asking user for input
+            symbol = list(x)[i]  # assigning the iterated character to variable 'symbol'
             print('\n', symbol, 'represents :')
-            answer = input()
-            ansList.append(answer)
-            i += 1
-    finAns = ''.join(ansList)
+            answer = input()  #asking for input
+            ansList.append(answer)  # appending answer to the list earlier
+            i += 1  # add counter by 1
+    finAns = ''.join(ansList)  # changing the list of answers into a string (a full sentence)
     return finAns
 
 def reward(x):
-    print('\nThe message that you decrypted is: ', x)
-    if play == oneE:
-        if ans(oneE) == oneD:
+    print('\nThe message that you decrypted is: ', x)  # print the answer given by user
+    if play == oneE:  # the following code will only execute if the chosen msg is oneE
+        if ans(oneE) == oneD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -552,8 +552,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', oneD, '\033[0;30m')
-    elif play == twoE:
-        if ans(twoE) == twoD:
+    elif play == twoE:  # the following code will only execute if the chosen msg is twoE
+        if ans(twoE) == twoD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -561,8 +561,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', twoD, '\033[0;30m')
-    elif play == threeE:
-        if ans(threeE) == threeD:
+    elif play == threeE:  # the following code will only execute if the chosen msg is threeE
+        if ans(threeE) == threeD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -570,8 +570,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', threeD, '\033[0;30m')
-    elif play == fourE:
-        if ans(fourE) == fourD:
+    elif play == fourE:  # the following code will only execute if the chosen msg is fourE
+        if ans(fourE) == fourD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -579,8 +579,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', fourD, '\033[0;30m')
-    elif play == fiveE:
-        if ans(fiveE) == fiveD:
+    elif play == fiveE:  # the following code will only execute if the chosen msg is fiveE
+        if ans(fiveE) == fiveD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -588,8 +588,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', fiveD, '\033[0;30m')
-    elif play == sixE:
-        if ans(sixE) == sixD:
+    elif play == sixE:  # the following code will only execute if the chosen msg is sixE
+        if ans(sixE) == sixD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -597,8 +597,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', sixD, '\033[0;30m')
-    elif play == sevenE:
-        if ans(sevenE) == sevenD:
+    elif play == sevenE:  # the following code will only execute if the chosen msg is sevenE
+        if ans(sevenE) == sevenD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -606,8 +606,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', sevenD, '\033[0;30m')
-    elif play == eightE:
-        if ans(eightE) == eightD:
+    elif play == eightE:  # the following code will only execute if the chosen msg is eightE
+        if ans(eightE) == eightD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -615,8 +615,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', eightD, '\033[0;30m')
-    elif play == nineE:
-        if ans(nineE) == nineD:
+    elif play == nineE:  # the following code will only execute if the chosen msg is nineE
+        if ans(nineE) == nineD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
@@ -624,8 +624,8 @@ def reward(x):
             print("\n\033[0;33mUnfortunately, you didn't decrypt the message correctly.")
             print("You won't be getting any hints for now.")
             print('\nThe correct answer is: ', nineD, '\033[0;30m')
-    elif play == tenE:
-        if ans(tenE) == tenD:
+    elif play == tenE:  # the following code will only execute if the chosen msg is tenE
+        if ans(tenE) == tenD:  # if the input given by user is the same as the original message then user get hint
             print('\n\033[0;33mCongratulations! You successfully decrypted the message!')
             print('Here is a clue to help you answer the main question:\033[0;30m')
             print('\nHINT')
