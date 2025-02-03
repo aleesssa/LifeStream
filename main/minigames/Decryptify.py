@@ -539,7 +539,6 @@ def ans(x):  # function to ask for input
             ansList.append(answer)  # appending answer to the list earlier
             i += 1  # add counter by 1
     finAns = ''.join(ansList)  # changing the list of answers into a string (a full sentence)
-    print('\nThe message that you decrypted is: ', finAns)  # print the answer given by user
     return finAns
 
 def reward(x):
