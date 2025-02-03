@@ -28,10 +28,22 @@ class Player:
 
     # convert player data to json to save progress
     def to_dict(self):
-        pass
+        player = {
+            'name' : self.name,
+            'level' : self.level,
+            'xp' : self.xp,
+            'hearts' : self.hearts
+        }
+        return player
+    
     # convert saved json file to object
-    def from_dict(self):
-        pass
+    @staticmethod
+    def from_dict(player):
+        name = player['name']
+        level = player['level']
+        xp = player['xp']
+        hearts = player['hearts']
+        return Player(name, level, xp, hearts)
     
 class Patient:
     # Instantiating object
@@ -82,7 +94,7 @@ class Quiz:
         
         # Print answer choices
         for i, answer in enumerate(answerChoices):
-            intToLetter = lambda x: chr(ord("A") + i) # Convert int to letter for MCQ
+            intToLetter = lambda x: chr(ord("A") + x) # Convert int to letter for MCQ
             print(f'{intToLetter(i)}. {answer}')
         
     # def randomizeChoices(self, n):
@@ -154,7 +166,7 @@ def startLevel(patient, quiz):
         answer = input("Answer : ")
         if quiz.checkAnswer(index, answer):
             print("Correct!")
-            quiz.revealInfo(patient1, index) # Reveal patient's info according to the question answered
+            quiz.revealInfo(patient, index) # Reveal patient's info according to the question answered
             quiz.questionSet.pop(index) # Remove question from the list
             player.xp += quiz.xp
         else:
@@ -211,10 +223,10 @@ def printInfo():
 
 # Create Patient instances   
 patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter')
-patient2 = Patient('Baby Boss', 1, 'Fell from bed', 'Swelling on the head', 'O+', 'Eggs')
+patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
 patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses', isRevealedAge=True)
-patient4 = Patient('Suka binti Dessert', 45, 'Diabetes', 'B', 'None')
-patient5 = Patient('Nisreen Athirah', 22, 'Eczema', '', 'O', 'None')
+patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
+patient5 = Patient('Nisreen Athirah', 22, 'Eczema', 'Painful blisters on hands', 'O-', 'Dust')
             
 patients = [patient1, patient2, patient3, patient4, patient5]
 
@@ -261,33 +273,33 @@ questionSet2 = [
     {
         'question' : "What happened to Baby Boss?",
         'answer' : 'A',
-        'answerChoices' : ['Fell from bed', 'Choked on a food', 'Allergy rection', 'Cried too much'],
+        'answerChoices' : ['Fell off the bed', 'Choked on a food', 'Allergy reaction', 'Cried too much'],
         'revealedInfo' : 'condition',
-        'hint' : 'Happened when he was sleeping.'
+        'hint' : 'Head concussion'
     },
     {
         'question' : "What symptom is the baby showing?",
-        'answer' : 'D',
-        'answerChoices' : ['B+ donor', 'O+ donor', 'A- Donor', 'O- donor'],
-        'revealedInfo' : 'blood_type',
-        'hint' : "Jaehyun's blood type is B-"
-    },
-    {
-        'question' : "What symptom does Jaehyun show?",
-        'answer' : 'A',
-        'answerChoices' : ['Pale skin.', 'High fever', 'Joint pain', 'Rash'],
-        'revealedInfo' : 'symptom',
-        'hint' : "This condition affects the body's ability to carry oxygen efficiently"
-    },
-    {
-        'question' : "What is the best diet for Jaehyun",
         'answer' : 'B',
-        'answerChoices' : ['Dairy products and white rice', 'Lean red meat and vitamin C-rich fruits', 'Fast food and sugary drinks', 'Seafood, whole grains and coffee'],
-        'revealedInfo' : 'condition',
-        'hint' : 'Jaehyun often feels tired and dizzy.'
+        'answerChoices' : ['Hyperactivity', 'Vomiting', 'Runny nose', 'High fever'],
+        'revealedInfo' : 'symptom',
+        'hint' : "Liquid"
     },
     {
-        'question' : "As Jaehyun's doctor, what should you avoid placing in his hospital room?",
+        'question' : "From the symptom shown, what is the most immediate medical concern",
+        'answer' : 'D',
+        'answerChoices' : ['Fractured arm', 'Sprained ankle', 'Dehydration', 'Concussion'],
+        'revealedInfo' : 'symptom',
+        'hint' : ""
+    },
+    {
+        'question' : "Who can donate blood to Baby Boss?",
+        'answer' : 'B',
+        'answerChoices' : ['A+ Donor', 'O- Donor', 'B- Donor', 'AB-'],
+        'revealedInfo' : 'blood_type',
+        'hint' : 'Baby Boss has O+ type.'
+    },
+    {
+        'question' : "Which food should you not feed to Baby Boss?",
         'answer' : 'C',
         'answerChoices' : ['A bowl of fresh fruit', 'A humidifier', 'A scented rose bouquet', 'A book and a cup of tea'],
         'revealedInfo' : 'condition',
@@ -333,18 +345,76 @@ questionSet3 = [
 ]
 questionSet4 = [
     {
-        'question' : "What is your patient's age?",
-        'answer' : 12,
-        'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
+        'question' : "How do you treat Sunghoon's condition?",
+        'answer' : 'C',
+        'answerChoices' : ['Administration of intravenous fluids and pain management', 'Antibiotic therapy', 'Surgical removal of the appendix', 'Adoption of a high-fiber diet and bed rest'],
+        'revealedInfo' : 'condition',
+        'hint' : "Sunghoon is facing acute appendicitis"
+    },
+    {
+        'question' : "What causes Sunghoon's symptom?",
+        'answer' : 'A',
+        'answerChoices' : ['Physical blockage of the intestines', 'Inflammatory cytokine release', 'Excessive gastric acid secretion', 'Severe blood loss from the inflamed appendix'],
+        'revealedInfo' : 'symptom',
+        'hint' : "Sunghoon shows lack of appetite as the symptom"
+    },
+    {
+        'question' : "Which is true about Sunghoon's blood type?",
+        'answer' : 'C',
+        'answerChoices' : ['They can donate red blood cells to patients of any blood type', 'They are universal recipients for red blood cell transfusions', 'Their plasma can be transfused to patients of all blood types', 'They can only receive red blood cells from O- donors.'],
+        'revealedInfo' : 'blood_type',
+        'hint' : 'Sunghoon has AB- blood type.'
+    },
+    {
+        'question' : "What is the most appropriate diet for Sunghoon after appendix surgery?",
+        'answer' : 'B',
+        'answerChoices' : ['Plenty of fruits and vegetables', 'Clear liquids only, gradually advancing to soft foods', 'High-protein, low-carbohydrate diet', 'High-sugar diet for energy'],
+        'revealedInfo' : 'condition',
+        'hint' : 'After appendix surgery, patient needs foods that are balanced and easy to digest'
+    },
+    {
+        'question' : "What is Sunghoon allergic to?",
+        'answer' : 'D',
+        'answerChoices' : ['Eggs', 'Peanut butter', 'Grapes', 'Nothing'],
+        'revealedInfo' : 'allergy',
+        'hint' : 'Sunghoon is not allergic to anything'
     }
 ]
 questionSet5 = [
     {
-        'question' : "What is your patient's age?",
-        'answer' : 12,
-        'answerChoices' : [12, 30, 50, 100],
-        'hint' : 'Kids this age usually start going through puberty.'
+        'question' : "Is Nisreen's conditionc contagious?",
+        'answer' : 'C',
+        'answerChoices' : ['Yes, it can spread through direct skin contact', 'No, it is not contagious', 'Yes, it is caused by bacteria and can be transmitted through the air', 'All of the above'],
+        'revealedInfo' : 'condition',
+        'hint' : "Nisreen has eczema"
+    },
+    {
+        'question' : "What type of eczema does Nisreen have?",
+        'answer' : 'A',
+        'answerChoices' : ['Dyhrotic eczema', 'Atopic dermatitis', 'Contact dermatitis', 'Nummular Eczema'],
+        'revealedInfo' : 'symptom',
+        'hint' : "Nisreen has small, fluid-filled blisters on her hands"
+    },
+    {
+        'question' : "In a scenario where Nisreen needs blood donation, which one of your previous patients is eligible and compatible to donate blood to Nisreen?",
+        'answer' : 'E',
+        'answerChoices' : ['Moana binti Drake', 'Baby Boss', 'Jaehyun bin Jamal', 'Sunghoon', 'None of the above'],
+        'revealedInfo' : 'blood_type',
+        'hint' : 'Nisreen has O- blood type.'
+    },
+    {
+        'question' : "What is the best treatment for Nisreen?",
+        'answer' : 'B',
+        'answerChoices' : ['Scrubbing the blisters to remove dead skin and applying alcohol-based sanitizer', 'Applying a thick moisturizer, using mild steroid cream, and avoiding triggers', 'Popping the blisters to let the fluid drain and dry out the skin', 'Taking antibiotics immediately, even if there is no sign of infection'],
+        'revealedInfo' : 'condition',
+        'hint' : 'Treatments should focus on soothing the skin, reducing inflammation, and preventing infections'
+    },
+    {
+        'question' : "Nisreen had an eczema flare up recently. What is the possible trigger for her flare up?",
+        'answer' : 'C',
+        'answerChoices' : ['Smoke', 'Pollen', 'Dust', 'Stress'],
+        'revealedInfo' : 'allergy',
+        'hint' : 'Nisreen was cleaning her fan the day before the flare up happened'
     }
 ]
     
