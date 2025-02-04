@@ -83,6 +83,7 @@ class Patient:
         print(self.name)
         print(f'Age : {self.age if self.isRevealed['age'] else '?????????'}')
         print(f'Condition : {self.condition if self.isRevealed['condition'] else '?????????'}')
+        print(f'Symptom : {self.symptom if self.isRevealed['symptom'] else '?????????'}')
         print(f'Blood type : {self.blood_type if self.isRevealed['blood_type'] else '?????????'}')
         print(f'Allergy : {self.allergy if self.isRevealed['allergy'] else '?????????'}')
 
@@ -169,14 +170,15 @@ class Game:
         with open('player.json', 'w') as playerFile:
             json.dump(player.to_dict(), playerFile, indent = 4)
             
-        for i, patient in enumerate(patients):
-            with open(f'patient{i}.json', 'w') as patientFile:
-                json.dump(patient.to_dict(), patientFile, indent = 4)
-                
-        # Save json file for each quiz, to save unanswered questions
-        for i, quiz in enumerate(quizzes):
-            with open(f'quiz{i}.json', 'w') as quizFile:
-                json.dump(quiz.to_dict(), quizFile, indent = 4)        
+        # Save patient info to patients.json
+        patients = [patient.to_dict() for patient in patients]        
+        with open('patients.json', 'w') as patientFile:
+            json.dump(patients, patientFile, indent = 4)
+            
+        # Save quizzes to quizzes.json
+        quizzes = [quiz.to_dict() for quiz in quizzes] 
+        with open('quizzes.json', 'w') as quizFile:
+            json.dump(quizzes, quizFile, indent = 4)    
         
                 
         
@@ -191,17 +193,17 @@ class Game:
 
     @staticmethod
     def loadPatient(n):
-        with open(f'patient{n}.json', 'r') as patientFile:
+        with open('patients.json', 'r') as patientFile:
             patientData = json.load(patientFile)
-            patient = Patient.from_dict(patientData)
+            patient = Patient.from_dict(patientData[n])
             
         return patient
     
     @staticmethod
     def loadQuiz(n):
-        with open(f'quiz{n}.json', 'r') as quizFile:
+        with open('quizzes.json', 'r') as quizFile:
             quizData = json.load(quizFile)
-            quiz = Quiz.from_dict(quizData)
+            quiz = Quiz.from_dict(quizData[n])
             
         return quiz
     
@@ -245,10 +247,12 @@ def startLevel(patient, quiz):
             player.level += 1
             print("You've leveled up!")
     
+        saveGame = input('would you like to save the game?')
+        if saveGame == 'yes':
+            Game.saveGame(player, patients, quizzes)
         
         if player.hearts <= 0:
             lose()
-            
             
         patient.printProfile()
         
@@ -351,7 +355,7 @@ questionSet2 = [
     {
         'question' : "Who can donate blood to Baby Boss?",
         'answer' : 'B',
-        'answerChoices' : ['A+ Donor', 'O- Donor', 'B- Donor', 'AB-'],
+        'answerChoices' : ['A+ Donor', 'O- Donor', 'B- Donor', 'AB- Donor'],
         'revealedInfo' : 'blood_type',
         'hint' : 'Baby Boss has O+ type.'
     },
@@ -475,19 +479,14 @@ questionSet5 = [
     }
 ]
     
-quiz1 = Quiz(questionSet1, xp=10)
-quiz2 = Quiz(questionSet2, xp=15)
-quiz3 = Quiz(questionSet3, xp=20)
-quiz4 = Quiz(questionSet4, xp=25)
-quiz5 = Quiz(questionSet5, xp=30)
 
-quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
 
 # Print students info
 printInfo()
 
 
 # GAME STARTS
+
 
 # Check for saved file
 if os.path.exists('player.json'):
@@ -498,23 +497,41 @@ if os.path.exists('player.json'):
         quizzes = []
         patients = []
         
+        # Load patients and quizzes info and append instances to patients and quizzes list
         for i in range (player.level - 1, 5):
             patients.append(Game.loadPatient(i))
             quizzes.append(Game.loadQuiz(i))
-            
-
+ 
         
+        print(f'Welcome back, Dr. {player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
         
-        print(f'Welcome back, Dr.{player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
-        
-        
-        
+        # Start level starting from current patient
         for i in range(len(patients)):
             startLevel(patients[i], quizzes[i])
-            
-    
+    else:       
+        # Create Patient instances using new data   
+        patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter', isRevealedAge=False)
+        patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
+        patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses')
+        patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
+        patient5 = Patient('Nisreen Athirah', 22, 'Eczema', 'Painful blisters on hands', 'O-', 'Dust')
         
-else:        
+        patients = [patient1, patient2, patient3, patient4, patient5]
+        
+        # Create Quiz instances using new data
+        quiz1 = Quiz(questionSet1, xp=10)
+        quiz2 = Quiz(questionSet2, xp=15)
+        quiz3 = Quiz(questionSet3, xp=20)
+        quiz4 = Quiz(questionSet4, xp=25)
+        quiz5 = Quiz(questionSet5, xp=30)
+
+        quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
+        
+        # Get player's name and create player instance
+        name = input("Hi there! Mind telling us your name? : ").capitalize()
+        player = Player(name, xp=0, level=1, hearts=10)
+        printIntro(player.name) # INTRO
+else:
     # Create Patient instances using new data   
     patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter', isRevealedAge=False)
     patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
@@ -523,27 +540,23 @@ else:
     patient5 = Patient('Nisreen Athirah', 22, 'Eczema', 'Painful blisters on hands', 'O-', 'Dust')
     
     patients = [patient1, patient2, patient3, patient4, patient5]
+    
+    # Create Quiz instances using new data
+    quiz1 = Quiz(questionSet1, xp=10)
+    quiz2 = Quiz(questionSet2, xp=15)
+    quiz3 = Quiz(questionSet3, xp=20)
+    quiz4 = Quiz(questionSet4, xp=25)
+    quiz5 = Quiz(questionSet5, xp=30)
 
+    quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
+    
     # Get player's name and create player instance
     name = input("Hi there! Mind telling us your name? : ").capitalize()
     player = Player(name, xp=0, level=1, hearts=10)
     printIntro(player.name) # INTRO
 
-    # Start level 1
-    startLevel(patient1, quiz1)
-    Game.saveGame(player, patients, quizzes)
 
-    # # Start level 2
-    # startLevel(patient2, quiz2)
+for i in range(len(patients)):
+    startLevel(patients[i], quizzes[i])
             
-    # # Start level 3
-    # startLevel(patient3, quiz3)
 
-    # # Start level 4
-    # startLevel(patient4, quiz4)
-        
-    # # Start level 5
-    # startLevel(patient5, quiz5)
-
-
-player.printStatus()
