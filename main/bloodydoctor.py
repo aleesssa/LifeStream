@@ -1,14 +1,15 @@
+import os
+import json
 import random
 from minigames.crossword import CrosswordPuzzle
 from minigames.tictactoe import tictactoe
 from minigames.wordsearch import WordSearchV2
 
-
 class Player:
-    def __init__(self, name, xp, level, hearts):
+    def __init__(self, name, level, xp, hearts):
         self.name = name
-        self.xp = xp
         self.level = level
+        self.xp = xp
         self.hearts = hearts
         
     def printStatus(self):
@@ -28,13 +29,7 @@ class Player:
 
     # convert player data to json to save progress
     def to_dict(self):
-        player = {
-            'name' : self.name,
-            'level' : self.level,
-            'xp' : self.xp,
-            'hearts' : self.hearts
-        }
-        return player
+        return player.__dict__
     
     # convert saved json file to object
     @staticmethod
@@ -47,7 +42,7 @@ class Player:
     
 class Patient:
     # Instantiating object
-    def __init__(self, name, age, condition, symptom, blood_type, allergy, isRevealedAge = False, isRevealedCondition = False, isRevealedSymptom = False, isRevealedBloodType = False, isRevealedAllergy = False):
+    def __init__(self, name, age, condition, symptom, blood_type, allergy, isRevealedAge = True, isRevealedCondition = False, isRevealedSymptom = False, isRevealedBloodType = False, isRevealedAllergy = False):
         self.name = name
         self.age = age
         self.condition = condition
@@ -64,13 +59,25 @@ class Patient:
         'allergy' : isRevealedAllergy
         }
 
-    # convert patient's state to json
+    # return state of info(revealed or not) to be saved
     def to_dict(self):
-        pass
+        return self.__dict__
+        
     # convert saved json file to object
-    def from_dict(self):
-        pass
-
+    @staticmethod
+    def from_dict(patient):
+        name = patient['name']
+        age = patient['age']
+        condition = patient['condition']
+        symptom = patient['symptom']
+        blood_type = patient['blood_type']
+        allergy = patient['allergy']
+        isRevealed = patient['isRevealed']
+        
+        patient = Patient(name, age, condition, symptom, blood_type, allergy, isRevealed['age'], isRevealed['condition'], isRevealed['symptom'], isRevealed['blood_type'], isRevealed['allergy'])
+        
+        return patient
+        
     # Print patient's profile
     def printProfile(self):
         print(self.name)
@@ -113,11 +120,23 @@ class Quiz:
             return False
     
     def revealInfo(self, patient, index):
-        patient.isRevealed[self.questionSet[index]['revealedInfo']] = True
-        
+        patient.isRevealed[self.questionSet[index]['revealedInfo']] = True        
+
     # choose question randomly
     def randomize(self):
         return random.randint(0, len(self.questionSet) - 1)
+
+    # Return Quiz dict to be saved in a json file
+    def to_dict(self):
+        return self.__dict__
+
+    # From dict to instance
+    @staticmethod
+    def from_dict(quiz):
+        questionSet = quiz['questionSet']
+        xp = quiz['xp']
+        
+        return Quiz(questionSet, xp)
 
 class Game:
     games = ['Word search', 'Crossword', 'TicTacToe']
@@ -143,21 +162,68 @@ class Game:
             CrosswordPuzzle.execute()
         if index == 3:
             tictactoe.play_game()
+            
+    @staticmethod
+    def saveGame(player, patients, quizzes):
+        # Save player and patient data to their respective json files
+        with open('player.json', 'w') as playerFile:
+            json.dump(player.to_dict(), playerFile, indent = 4)
+            
+        for i, patient in enumerate(patients):
+            with open(f'patient{i}.json', 'w') as patientFile:
+                json.dump(patient.to_dict(), patientFile, indent = 4)
+                
+        # Save json file for each quiz, to save unanswered questions
+        for i, quiz in enumerate(quizzes):
+            with open(f'quiz{i}.json', 'w') as quizFile:
+                json.dump(quiz.to_dict(), quizFile, indent = 4)        
+        
+                
+        
+
+    # Load json files as python dictionaries and create player instance
+    @staticmethod
+    def loadPlayer():
+        with open('player.json', 'r') as playerFile:
+            playerData = json.load(playerFile) 
+            player = Player.from_dict(playerData) # Player instance created from loaded dictionary
+        return player    
+
+    @staticmethod
+    def loadPatient(n):
+        with open(f'patient{n}.json', 'r') as patientFile:
+            patientData = json.load(patientFile)
+            patient = Patient.from_dict(patientData)
+            
+        return patient
+    
+    @staticmethod
+    def loadQuiz(n):
+        with open(f'quiz{n}.json', 'r') as quizFile:
+            quizData = json.load(quizFile)
+            quiz = Quiz.from_dict(quizData)
+            
+        return quiz
+    
+                
+
+
 
 # Function for each level
 def startLevel(patient, quiz):
+
     patient.printProfile() # Print patient's profile
 
     # Loop through quiz set 1
     while len(quiz.questionSet) > 0: #makes sure player answers all the question correctly before proceeding to next patient
-        index = quiz.randomize() # Choose random question from question set
+        index = 0
         
         # Display question to player
         quiz.printQuiz(index)
         
-        hint = input("Would you like to play minigame and get a hint?[y/n] : ")
+        hint = input("Would you like to play minigame and get a hint?[yes/no] : ")
         
-        if hint == "y":
+        if hint.lower() == "y" or hint.lower() == "yes":
             Game.printGameOptions()
             index = int(input(f'Choose the minigame you would like to play![1 - {len(Game.games)}] :'))
             Game.executeGame(index)
@@ -220,15 +286,6 @@ def printInfo():
     """)
     
 
-
-# Create Patient instances   
-patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter')
-patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
-patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses', isRevealedAge=True)
-patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
-patient5 = Patient('Nisreen Athirah', 22, 'Eczema', 'Painful blisters on hands', 'O-', 'Dust')
-            
-patients = [patient1, patient2, patient3, patient4, patient5]
 
 # Quiz section
 questionSet1 = [
@@ -339,7 +396,7 @@ questionSet3 = [
         'question' : "As Jaehyun's doctor, what should you avoid placing in his hospital room?",
         'answer' : 'C',
         'answerChoices' : ['A bowl of fresh fruit', 'A humidifier', 'A scented rose bouquet', 'A book and a cup of tea'],
-        'revealedInfo' : 'condition',
+        'revealedInfo' : 'allergy',
         'hint' : 'Jaehyun enjoys nature but avoids certain flowers because they make him feel unwell.'
     }
 ]
@@ -353,28 +410,28 @@ questionSet4 = [
     },
     {
         'question' : "What causes Sunghoon's symptom?",
-        'answer' : 'A',
+        'answer' : '',
         'answerChoices' : ['Physical blockage of the intestines', 'Inflammatory cytokine release', 'Excessive gastric acid secretion', 'Severe blood loss from the inflamed appendix'],
         'revealedInfo' : 'symptom',
         'hint' : "Sunghoon shows lack of appetite as the symptom"
     },
     {
         'question' : "Which is true about Sunghoon's blood type?",
-        'answer' : 'C',
+        'answer' : '',
         'answerChoices' : ['They can donate red blood cells to patients of any blood type', 'They are universal recipients for red blood cell transfusions', 'Their plasma can be transfused to patients of all blood types', 'They can only receive red blood cells from O- donors.'],
         'revealedInfo' : 'blood_type',
         'hint' : 'Sunghoon has AB- blood type.'
     },
     {
         'question' : "What is the most appropriate diet for Sunghoon after appendix surgery?",
-        'answer' : 'B',
+        'answer' : '',
         'answerChoices' : ['Plenty of fruits and vegetables', 'Clear liquids only, gradually advancing to soft foods', 'High-protein, low-carbohydrate diet', 'High-sugar diet for energy'],
         'revealedInfo' : 'condition',
         'hint' : 'After appendix surgery, patient needs foods that are balanced and easy to digest'
     },
     {
         'question' : "What is Sunghoon allergic to?",
-        'answer' : 'D',
+        'answer' : '',
         'answerChoices' : ['Eggs', 'Peanut butter', 'Grapes', 'Nothing'],
         'revealedInfo' : 'allergy',
         'hint' : 'Sunghoon is not allergic to anything'
@@ -424,31 +481,69 @@ quiz3 = Quiz(questionSet3, xp=20)
 quiz4 = Quiz(questionSet4, xp=25)
 quiz5 = Quiz(questionSet5, xp=30)
 
+quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
+
 # Print students info
 printInfo()
 
 
 # GAME STARTS
 
-# Get player's name and create player instance
-name = input("Hi there! Mind telling us your name? : ").capitalize()
-player = Player(name, xp=0, level=1, hearts=10)
-printIntro(player.name) # INTRO
-
-# Start level 1
-startLevel(patient1, quiz1)
-
-# Start level 2
-startLevel(patient2, quiz2)
+# Check for saved file
+if os.path.exists('player.json'):
+    loadFile = input('Would you like to load your saved game? [Yes/No] : ')
+    if loadFile.lower() == 'yes' or loadFile.lower() == 'y':
+        # Create instances using saved data
+        player = Game.loadPlayer()
+        quizzes = []
+        patients = []
         
-# Start level 3
-startLevel(patient3, quiz3)
+        for i in range (player.level - 1, 5):
+            patients.append(Game.loadPatient(i))
+            quizzes.append(Game.loadQuiz(i))
+            
 
-# Start level 4
-startLevel(patient4, quiz4)
+        
+        
+        print(f'Welcome back, Dr.{player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
+        
+        
+        
+        for i in range(len(patients)):
+            startLevel(patients[i], quizzes[i])
+            
     
-# Start level 5
-startLevel(patient5, quiz5)
+        
+else:        
+    # Create Patient instances using new data   
+    patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter', isRevealedAge=False)
+    patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
+    patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses')
+    patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
+    patient5 = Patient('Nisreen Athirah', 22, 'Eczema', 'Painful blisters on hands', 'O-', 'Dust')
+    
+    patients = [patient1, patient2, patient3, patient4, patient5]
+
+    # Get player's name and create player instance
+    name = input("Hi there! Mind telling us your name? : ").capitalize()
+    player = Player(name, xp=0, level=1, hearts=10)
+    printIntro(player.name) # INTRO
+
+    # Start level 1
+    startLevel(patient1, quiz1)
+    Game.saveGame(player, patients, quizzes)
+
+    # # Start level 2
+    # startLevel(patient2, quiz2)
+            
+    # # Start level 3
+    # startLevel(patient3, quiz3)
+
+    # # Start level 4
+    # startLevel(patient4, quiz4)
+        
+    # # Start level 5
+    # startLevel(patient5, quiz5)
 
 
 player.printStatus()
