@@ -394,3 +394,4 @@ def execute():
     reward(check, initial) # check points accumulated
 
     # word search game end
+    

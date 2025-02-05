@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Local player files
+patients.json
+player.json
+quizzes.json

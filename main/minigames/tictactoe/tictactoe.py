@@ -94,7 +94,7 @@ def play_game():
             if check_winner(board, computer):
                 print_board(board)
                 print("Computer wins! You won't be getting any hints for now.")
-                return
+                return False
         
     print_board(board)
     print("It's a tie!")
@@ -105,4 +105,3 @@ def play_game():
          print("Thanks for playing! 👋")
          break
 
-play_game()
