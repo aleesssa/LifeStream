@@ -50,7 +50,7 @@ def sqExecute():
     t.join()  # function to connect the threads once timer is done
 
 def pic(x):  # function to show image
-    path = str('SpeedQuiz/images/' + x)  # file path string set to variable 'path'
+    path = str('sqStuff/images/' + x)  # file path string set to variable 'path'
     img = cv2.imread(path, cv2.IMREAD_ANYCOLOR)  # cv2 funtion to read the image file, set to variable 'img'
     img = cv2.resize(img, (600,600))  # cv2 function to resize the image
     cv2.imshow('Picture', img)  # cv2 function to display the image and setting the name of the window to 'Picture'
@@ -58,7 +58,7 @@ def pic(x):  # function to show image
     cv2.destroyAllWindows()  # cv2 function to close the image window
 
 def pict(x):  # similar function to pic() but with longer duration to display image
-    path = str('SpeedQuiz/images/' + x)
+    path = str('sqStuff/images/' + x)
     img = cv2.imread(path, cv2.IMREAD_ANYCOLOR)
     img = cv2.resize(img, (600,600))
     cv2.imshow('Picture', img)
@@ -66,7 +66,7 @@ def pict(x):  # similar function to pic() but with longer duration to display im
     cv2.destroyAllWindows()
 
 def longpict(x):  # similar function to pic() but with different image size and longer duration to display image
-    path = str('SpeedQuiz/images/' + x)
+    path = str('sqStuff/images/' + x)
     img = cv2.imread(path, cv2.IMREAD_ANYCOLOR)
     img = cv2.resize(img, (600,400))
     cv2.imshow('Picture', img)
@@ -74,7 +74,7 @@ def longpict(x):  # similar function to pic() but with different image size and 
     cv2.destroyAllWindows()
 
 def longpic(x):  # similar function to pic() but with different image size
-    path = str('SpeedQuiz/images/' + x)
+    path = str('sqStuff/images/' + x)
     img = cv2.imread(path, cv2.IMREAD_ANYCOLOR)
     img = cv2.resize(img, (600,400))
     cv2.imshow('Picture', img)
@@ -333,12 +333,9 @@ def reward():  # function to give hint to user if points are enough
     print('\nYour points: ', points)  # display user's final points
     time.sleep(2)
     if points < 10:  # conditional to check if the points accumulated are enough to get reward
-        print("\n\033[0;33mUnfortunately, you don't have enough points.")
-        print("You won't be getting any hints for now.\033[0;30m")  # if points collected are less than 10, no hints/reward is given
+        return False  # if points collected are less than 10, no hints/reward is given
     else:
-        print('\n\033[0;33mCongratulations! You have enough points!')
-        print('Here is a clue to help you answer the main question:\033[0;30m')
-        print('\nHINT')  # if points collected are equal to or more than 10, hints/reward is given
+        return True  # if points collected are equal to or more than 10, hints/reward is given
 
 sqExecute()  # run sqExecute() function
 

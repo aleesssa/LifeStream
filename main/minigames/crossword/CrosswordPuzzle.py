@@ -112,12 +112,9 @@ def rewards(x):
     time.sleep(2)
     print('\nYour final points are: \033[0;33m', x, '\033[0;30m')
     if x >= 4:  #player will get reward if points are more than or equal to 4
-        print('\n\033[0;33mCongratulations! You completed the puzzles correctly!')
-        print('Here is a clue to help you answer the main question:\033[0;30m')
-        print('\nHINT')
+        return True
     else:
-        print("\n\033[0;33mUnfortunately, you didn't complete the puzzles correctly.")
-        print("You won't be getting any hints for now.\033[0;30m")
+        return False
 
 def cp1(): #question 1
     #assigning each numbered blocks into their own variable

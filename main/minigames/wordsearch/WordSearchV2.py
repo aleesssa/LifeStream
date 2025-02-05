@@ -378,12 +378,9 @@ def reward(check, initial):
     time.sleep(2)
     print('\nYour final points are: \033[0;33m', check, '\033[0;30m')
     if check == initial:
-        print('\n\033[0;33mCongratulations! You found all words correctly!')
-        print('Here is a clue to help you answer the main question:\033[0;30m')
-        print('\nHINT')
+        return True
     else:
-        print("\n\033[0;33mUnfortunately, you didn't find all words correctly.")
-        print("You won't be getting any hints for now.\033[0;30m")
+        return False
 
 
 
@@ -394,4 +391,3 @@ def execute():
     reward(check, initial) # check points accumulated
 
     # word search game end
-    
