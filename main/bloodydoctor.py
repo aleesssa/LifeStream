@@ -158,9 +158,9 @@ class Game:
             
             
         if index == 1:
-            WordSearchV2.execute()
+            WordSearchV2.wsExecute()
         if index == 2:
-            CrosswordPuzzle.execute()
+            CrosswordPuzzle.cpExecute()
         if index == 3:
             tictactoe.play_game()
             
