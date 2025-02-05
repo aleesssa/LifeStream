@@ -1,6 +1,19 @@
 import random
 
-# Define the board and the players
+print(" 🎮 Welcome to Tic-Tac-Toe! 🎮 ".center(50,"*"))
+print("\nHere are the instructions:")
+print("\n1.You are X, and the computer is O.")
+print("\n2.The game board is numbered 1-9 like this:")
+print("\n     1 | 2 | 3")
+print("     - - - - -")
+print("     4 | 5 | 6")
+print("     - - - - -")
+print("     7 | 8 | 9")
+print("\n💡 Enter a number (1-9) to place your mark (X).")
+print("\n3.Win by getting 3 in a row (horizontally, vertically, or diagonally).")
+print("\n4.If the board is full and no one wins, it's a tie!")
+print("\nCan you outsmart the Computer? Good luck! 🔥")
+
 board = [" " for _ in range(9)]
 human = "X"
 computer = "O"
@@ -64,7 +77,6 @@ def print_board(board):
         print("|".join(board[i:i+3]))
         if i < 6:
             print("-" * 5)
-
 def reset_board():
     return [" " for _ in range(9)]
 
@@ -85,7 +97,7 @@ def play_game():
         if check_winner(board, human):
             print_board(board)
             print("You win!🎉")
-            return # Ends the game if win
+            return True
         
         # Computer's turn
         if " " in board:
@@ -105,3 +117,4 @@ def play_game():
          print("Thanks for playing! 👋")
          break
 
+play_game()
