@@ -333,12 +333,9 @@ def reward():  # function to give hint to user if points are enough
     print('\nYour points: ', points)  # display user's final points
     time.sleep(2)
     if points < 10:  # conditional to check if the points accumulated are enough to get reward
-        print("\n\033[0;33mUnfortunately, you don't have enough points.")
-        print("You won't be getting any hints for now.\033[0;30m")  # if points collected are less than 10, no hints/reward is given
+        return False  # if points collected are less than 10, no hints/reward is given
     else:
-        print('\n\033[0;33mCongratulations! You have enough points!')
-        print('Here is a clue to help you answer the main question:\033[0;30m')
-        print('\nHINT')  # if points collected are equal to or more than 10, hints/reward is given
+        return True  # if points collected are equal to or more than 10, hints/reward is given
 
 sqExecute()  # run sqExecute() function
 
