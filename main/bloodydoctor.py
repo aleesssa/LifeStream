@@ -284,8 +284,8 @@ def printInfo():
 # Lecture / Lab Section: TC4L
 # Trimester: 2430
 # Names: ALEESSA BATRISYIA BINTI AZWAN | NUR ALYA IMAN BINTI MOHD PAZLI YUSOF | NUR DAMIA' BATRISYIA BINTI MOHAMMAD DENEE ROSDI | QAISARAH BINTI SHAMSUL AZRAN
-# IDs: 
-# Emails: 
+# IDs:  |  |  | 242FC243DY
+# Emails:  |  |  | QAISARAH.SHAMSUL.AZRAN@student.mmu.edu.my
 # ************************************************************************************************************************************************************************  
     """)
     
