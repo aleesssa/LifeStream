@@ -1,10 +1,40 @@
 import os
 import json
 import random
+from textual import on
+from textual.app import App, ComposeResult
+from textual.containers import Container, Horizontal
+from textual.widgets import Input, Label, Footer, Header, Static
+
 from minigames.crossword import CrosswordPuzzle
 from minigames.tictactoe import tictactoe
 from minigames.wordsearch import WordSearchV2
 
+class BloodyDoctor(App):
+    TITLE = "BLOODY DOCTOR"
+    SUB_TITLE = "Roleplay as a doctor and save patients!"
+    CSS_PATH = "style.tcss"
+    BINDINGS = [('d', 'toggle_dark', 'Toggle dark mode')]
+    
+    def compose(self) -> ComposeResult:
+        # Create child widget for the app
+        yield Header()
+        yield Footer()
+        yield Container(
+            Label("Hi, there! Mind telling us your name?"),
+            Input(placeholder="Enter your name"),
+            id="name"
+        )
+    
+    def action_toggle_dark(self) -> None:
+        self.theme = (
+            'textual-dark' if self.theme == 'textual-light' else 'textual-light'
+        )
+        
+if __name__ == '__main__':
+    app = BloodyDoctor()
+    app.run()
+    
 class Player:
     def __init__(self, name, level, xp, hearts):
         self.name = name
@@ -329,7 +359,6 @@ questionSet1 = [
         'hint' : 'Tired.'
     }
 ]
-
 questionSet2 = [
     {
         'question' : "What happened to Baby Boss?",

@@ -1,0 +1,4 @@
+Container {
+    align: center middle;
+    width: auto;
+}
