@@ -281,14 +281,13 @@ def k2hint():  # function to display hints to help user get the key
 
 def ans(x):  # function to get input and display the given input
     ansList = []  # an empty list to append the answers into later
-    if play == x:
-        i = 0  # setting the counter
-        while i < len(list(x)):  # loop to keep asking user for input for each symbol in the encrypted message
-            symbol = list(x)[i]  # assigning a symbol to variable 'symbol'
-            print('\n', symbol, 'represents :')
-            answer = input()  # asking for input and assigning it to variable 'answer'
-            ansList.append(answer)  # appending the input into the list earlier
-            i += 1  # increase counter
+    i = 0  # setting the counter
+    while i < len(list(x)):  # loop to keep asking user for input for each symbol in the encrypted message
+        symbol = list(x)[i]  # assigning a symbol to variable 'symbol'
+        print('\n', symbol, 'represents :')
+        answer = input()  # asking for input and assigning it to variable 'answer'
+        ansList.append(answer)  # appending the input into the list earlier
+        i += 1  # increase counter
     finAns = ''.join(ansList)  # joining each item in the list into a single string
     print('\nThe message that you decrypted is: ', finAns)  # printing the string of the answer given by user
     return finAns  # returning the value of the answer string
