@@ -2342,7 +2342,7 @@ def cp3(): #question 3
             print('Please enter a number from 1 to 3.')
 
 
-def execute():
+def cpExecute():
     cpInstructions() #display instructions
     diffQs = [cp1, cp2, cp3] #put all possible questins in a list and assigning it to a variable
     random.choice(diffQs)() #choosing a random question from the list

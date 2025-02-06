@@ -384,9 +384,11 @@ def reward(check, initial):
 
 
 
-def execute():
+def wsExecute():
     wsInstructions() # display instructions
     diffQs = [ws1, ws2, ws3, ws4] # putting the different possible questions in a list
+    global check
+    global initial
     check, initial = random.choice(diffQs)() # choosing random questions from the list and setting the return value to variable 'check' and 'initial'
     reward(check, initial) # check points accumulated
 
