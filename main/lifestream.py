@@ -358,7 +358,7 @@ def printInfo():
     tableInfo.add_column("Attribute")
     tableInfo.add_column("Value")
     
-    tableInfo.add_row('[bold]PROGRAM[/]', 'bloodydoctor.py')
+    tableInfo.add_row('[bold]PROGRAM[/]', 'lifestream.py')
     tableInfo.add_row('[bold]COURSE[/]', 'CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN')
     tableInfo.add_row('[bold]LECTURE / LAB SECTION[/]', 'TC4L')
     tableInfo.add_row('[bold]TRIMESTER[/]', '2430')
@@ -576,7 +576,7 @@ questionSet5 = [
     
 # Create concole instance for rich
 console = Console()
-console.rule("[bold red]Bloody Doctor")
+console.rule("[bold red]Life Stream")
 
 
 
