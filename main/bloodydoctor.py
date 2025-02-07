@@ -7,7 +7,6 @@ from rich.console import Console
 from rich.console import group
 from rich.table import Table
 from rich.panel import Panel
-from rich.padding import Padding
 
 
 from minigames import CrosswordPuzzle
@@ -16,6 +15,7 @@ from minigames import WordSearchV2
 from minigames import SpeedQuiz
 from minigames import scrambleword
 from minigames import Decryptify
+from minigames import rps
 
 class Player:
     def __init__(self, name, level, xp, hearts):
@@ -162,7 +162,7 @@ class Quiz:
         return Quiz(questionSet, xp)
 
 class Game:
-    games = ['Word search', 'Crossword', 'TicTacToe', 'Speed Quiz', 'Scramble Word', 'Decryptify', '']
+    games = ['Word search', 'Crossword', 'TicTacToe', 'Speed Quiz', 'Scramble Word', 'Decryptify', 'Rock, Paper, Scissor']
     
     # Display game options
     @classmethod
@@ -186,6 +186,8 @@ class Game:
             win = scrambleword.play_game()
         if index == 6:
             win = Decryptify.dExecute()
+        if index == 7:
+            win = rps.play_game()
             
         return win
             

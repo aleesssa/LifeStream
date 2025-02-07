@@ -62,12 +62,13 @@ def play_game():
     print(f"Final Score - You: {user_score}, Computer: {computer_score}")
     if user_score > computer_score:
         print("Congratulations! You won the game yahoo!")
+        return True
     elif user_score < computer_score:
         print("Uh oh you did a great job! Better luck next time! The computer won the game hehe.")
+        return False
     else:
         print("Well done! It's a draw weehee!")
+        return False
 
-if __name__ == "__main__":
-    play_game()
 
 
