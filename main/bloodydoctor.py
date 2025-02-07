@@ -29,6 +29,17 @@ class Player:
         print(f'Hearts = {self.hearts}')
         print(f'Level = {self.level}')
         print(f'XP = {self.xp}')
+        
+    # Print patient's profile
+    @group()
+    def playerStatus(self):
+        yield Panel(f'Level : {self.level}')
+        yield Panel(f'XP : {self.xp}')
+        yield Panel(f'Hearts : {self.hearts}')
+
+    def printStatus(self):
+        console.print(Panel(self.playerStatus(), title=self.name), justify='left', width=90)
+        time.sleep(1)    
 
     def xpToLevelUp(self):   
         xpToLevelUp = {
@@ -302,32 +313,28 @@ def startLevel(patient, quiz):
             console.print("\n[bold red]Incorrect..[/] don't you know your own patient?\n")
             time.sleep(1)
             player.hearts -= 1
-            console.print(f'You currently have [bold red]{player.hearts} hearts[/]\n\n')
+            console.print(f'You currently have [bold red]{player.hearts} hearts[/]\n\n')        
+            if player.hearts <= 0:
+                lose()
+                
             continue
+        
 
-        
-        if player.xp >= player.xpToLevelUp():
-            player.level += 1
-            console.print("You've leveled up! Moving on to the next patient!")
-            time.sleep(1)
-        else:
-            console.print("Moving on to the next question...\n")
-            time.sleep(1)
-        
-        if player.hearts <= 0:
-            lose()
+            
+        console.print("Moving on to the next question...\n")
+        time.sleep(1)
+
             
         
 # Execute when player loses (10 Hearts gone)
 def lose():
-    print("Your patient is dead. You should've paid more attention :wilted_flower:")
+    print("\nYour patient is [blood]dead[/]. You should've paid more attention :wilted_flower:")
     exit()
 
 # Function to print intro
 @group()
 def introPanel(name):
     yield Text(f'Hurry, Dr. {name}!')
-    time.sleep(3)
     yield Text('The hospital is bustling with patients. ')
     yield Text('You currently have 5 patients under your care.')
     yield Text('Treat your patients by answering questions related to them.')
@@ -653,7 +660,16 @@ else:
 
 # Start level starting from current patient
 for i in range(len(patients)):
-    startLevel(patients[i], quizzes[i])        
+    startLevel(patients[i], quizzes[i])   
+         
+    if player.xp >= player.xpToLevelUp():
+        player.level += 1
+        console.print("You've leveled up!")
+        time.sleep(1.5)
+        player.printStatus()
+        time.sleep(1.5)
+        console.print("Moving on to the next patient!")
+    
     saveGame = inputYesNo('Would you like to save the game?')
     if saveGame:
         Game.saveGame(player, patients, quizzes)
