@@ -1,0 +1,22 @@
+import random
+
+# List of words for the game
+words = ["python", "developer", "programming", "computer", "software"]
+
+# Pick a random word
+original_word = random.choice(words)
+
+# Scramble the word
+scrambled_word = list(original_word)
+random.shuffle(scrambled_word)
+scrambled_word = "".join(scrambled_word)
+
+# Game logic
+print("Scrambled word:", scrambled_word)
+user_guess = input("Guess the original word: ").lower()
+
+# Check answer
+if user_guess == original_word:
+    print("Correct! 🎉")
+else:
+    print(f"Wrong! The correct word was '{original_word}'.")
