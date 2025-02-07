@@ -1,14 +1,5 @@
 import random
 
-print(" 🎮 Welcome to Word Scramble! 🎮 ".center(50,"*"))
-print("\nHere are the instructions:")
-print("\n1.You must complete all 3 levels:")
-print("  • Easy [Basic Word] \n  • Intermediate [Moderate Difficulty] \n  • Hard [Medical Terms]")
-print("\n2.The game will show you a scrambled word related to blood donation.")
-print("\n3.You have 3 attempts to guess the correct word.")
-print("\n4.If you fail all attempts, the game ends and shows the correct word.")
-print("\nComplete all levels to unlock the hint! Good luck! 🚀✨")
-
 def load_words():
     level_1 = ["Donor", "Nurse", "Hospital", "Emergency","Doctor","Vein"]
     level_2 = ["Plasma", "Surgeon", "Diagnosis", "Anemia","Antibodies", "Vessel"]
@@ -44,6 +35,16 @@ def play_level(level, words, last_level):
     return False
 
 def play_game():
+    # Print instructions
+    print(" 🎮 Welcome to Word Scramble! 🎮 ".center(50,"*"))
+    print("\nHere are the instructions:")
+    print("\n1.You must complete all 3 levels:")
+    print("  • Easy [Basic Word] \n  • Intermediate [Moderate Difficulty] \n  • Hard [Medical Terms]")
+    print("\n2.The game will show you a scrambled word related to blood donation.")
+    print("\n3.You have 3 attempts to guess the correct word.")
+    print("\n4.If you fail all attempts, the game ends and shows the correct word.")
+    print("\nComplete all levels to unlock the hint! Good luck! 🚀✨")
+
     level_1, level_2, level_3 = load_words()
     levels = [(1, level_1), (2, level_2), (3, level_3)]
 
@@ -56,4 +57,4 @@ def play_game():
     print("\n🎁 Congratulations! You manage to guess all of the words!")
     return True
 
-play_game()
+

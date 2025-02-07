@@ -354,6 +354,5 @@ def reward():  # function to determine whether the user gets the hint for the ma
         else:
             return False
 
-dExecute()  # executing the main function
 
-# decryptify end
+    # decryptify end

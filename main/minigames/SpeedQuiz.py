@@ -337,7 +337,5 @@ def reward():  # function to give hint to user if points are enough
     else:
         return True  # if points collected are equal to or more than 10, hints/reward is given
 
-sqExecute()  # run sqExecute() function
-
-# speed quiz end
+    # speed quiz end
 

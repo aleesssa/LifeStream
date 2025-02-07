@@ -4,12 +4,18 @@ import random
 import time
 
 from rich.console import Console
+from rich.console import group
 from rich.table import Table
+from rich.panel import Panel
 from rich.padding import Padding
 
-from minigames.crossword import CrosswordPuzzle
-from minigames.tictactoe import tictactoe
-from minigames.wordsearch import WordSearchV2
+
+from minigames import CrosswordPuzzle
+from minigames import tictactoe
+from minigames import WordSearchV2
+from minigames import SpeedQuiz
+from minigames import scrambleword
+from minigames import Decryptify
 
 class Player:
     def __init__(self, name, level, xp, hearts):
@@ -85,13 +91,17 @@ class Patient:
         return patient
         
     # Print patient's profile
+    @group()
+    def patientProfile(self):
+        yield Panel(f'Age : {self.age if self.isRevealed['age'] else '?????????'}')
+        yield Panel(f'Condition : {self.condition if self.isRevealed['condition'] else '?????????'}')
+        yield Panel(f'Symptom : {self.symptom if self.isRevealed['symptom'] else '?????????'}')
+        yield Panel(f'Blood type : {self.blood_type if self.isRevealed['blood_type'] else '?????????'}')
+        yield Panel(f'Allergy : {self.allergy if self.isRevealed['allergy'] else '?????????'}')
+
     def printProfile(self):
-        print(self.name)
-        print(f'Age : {self.age if self.isRevealed['age'] else '?????????'}')
-        print(f'Condition : {self.condition if self.isRevealed['condition'] else '?????????'}')
-        print(f'Symptom : {self.symptom if self.isRevealed['symptom'] else '?????????'}')
-        print(f'Blood type : {self.blood_type if self.isRevealed['blood_type'] else '?????????'}')
-        print(f'Allergy : {self.allergy if self.isRevealed['allergy'] else '?????????'}')
+        console.print(Panel(self.patientProfile(), title=self.name), justify='left', width=90)
+        time.sleep(1)
 
 class Quiz:
     def __init__(self, questionSet, xp):
@@ -104,24 +114,30 @@ class Quiz:
         
         # Print question
         print(self.questionSet[n]['question'])
-        
+        time.sleep(0.5)
         
         # Print answer choices
         for i, answer in enumerate(answerChoices):
             intToLetter = lambda x: chr(ord("A") + x) # Convert int to letter for MCQ
             print(f'{intToLetter(i)}. {answer}')
+            time.sleep(0.5)
+            
+        print('\n')
         
-    # def randomizeChoices(self, n):
-    #     # randomize choices position 
-    #     randomizedChoices = random.choices(self.questionSet[n]['answerChoices'])
-        
-    #     pass
         
     def getHint(self, n):
         return self.questionSet[n]['hint']
+    
+    @staticmethod
+    def inputAnswer():
+        answer = console.input('Enter your answer : ').lower()
+        while answer not in ['a', 'b', 'c', 'd']:
+            answer = console.input('Enter your answer [bold][A, B, C, D][/] : ').lower()
+            
+        return answer
         
     def checkAnswer(self, n, answer):
-        if answer.lower() == self.questionSet[n]['answer'].lower():
+        if answer == self.questionSet[n]['answer'].lower():
             return True
         else:
             return False
@@ -157,18 +173,21 @@ class Game:
     # Execute game based on user's input
     @classmethod
     def executeGame(cls, index):
-        if 0 <= index <= len(cls.games):
-            print(f'Playing {cls.games[index-1]}')
-        else:
-            print('Invalid choice.')
-            
-            
+        win = False
         if index == 1:
-            WordSearchV2.wsExecute()
+            win = WordSearchV2.wsExecute()
         if index == 2:
-            CrosswordPuzzle.cpExecute()
+            win = CrosswordPuzzle.cpExecute()
         if index == 3:
-            tictactoe.play_game()
+            win = tictactoe.play_game()
+        if index == 4:
+            win = SpeedQuiz.sqExecute()
+        if index == 5:
+            win = scrambleword.play_game()
+        if index == 6:
+            win = Decryptify.dExecute()
+            
+        return win
             
     @staticmethod
     def saveGame(player, patients, quizzes):
@@ -185,9 +204,6 @@ class Game:
         quizzes = [quiz.to_dict() for quiz in quizzes] 
         with open('quizzes.json', 'w') as quizFile:
             json.dump(quizzes, quizFile, indent = 4)    
-        
-                
-        
 
     # Load json files as python dictionaries and create player instance
     @staticmethod
@@ -242,51 +258,65 @@ def inputInt(string, n):
 # Function for each level
 def startLevel(patient, quiz):
 
-    patient.printProfile() # Print patient's profile
 
     # Loop through quiz set 1
     while len(quiz.questionSet) > 0: #makes sure player answers all the question correctly before proceeding to next patient
-        index = 0
+        patient.printProfile() # Print patient's profile
+        question_index = 0
         
         # Display question to player
-        quiz.printQuiz(index)
+        quiz.printQuiz(question_index)
         
+        # Give user option to gain hint
         hint = inputYesNo("Would you like to play minigame and get a hint? ")
         
+        # If user wants hint
         if hint:
-            Game.printGameOptions()
-            index = inputInt('Choose the minigame you would like to play!', len(Game.games))
-            Game.executeGame(index)
-            quiz.printQuiz(index)
+            Game.printGameOptions() # Display minigames options
+            index = inputInt('Choose the minigame you would like to play!', len(Game.games)) # Get input for which minigame to play
+            win = Game.executeGame(index) # Execute minigame and get boolean (True for win and False for lose)
+            if win:
+                time.sleep(1)
+                console.print(f'\n[blue]Here\'s your hint![/]:bulb: [bold]{quiz.questionSet[0]['hint']}[/]\n') # Print hint
+            else:
+                time.sleep(1)
+                console.print("[red]You won't be getting any hints..[/]")
+                time.sleep(1)
+                continue
             
-        answer = input("Answer : ")
-        if quiz.checkAnswer(index, answer):
-            print("Correct!")
-            quiz.revealInfo(patient, index) # Reveal patient's info according to the question answered
-            quiz.questionSet.pop(index) # Remove question from the list
+            patient.printProfile()
+            quiz.printQuiz(question_index)
+            
+        answer = Quiz.inputAnswer()
+        if quiz.checkAnswer(question_index, answer):
+            time.sleep(1)
+            print("\nCorrect!\n")
+            time.sleep(1)
+            quiz.revealInfo(patient, question_index) # Reveal patient's info according to the question answered
+            quiz.questionSet.pop(question_index) # Remove question from the list
             player.xp += quiz.xp
         else:
-            print("Incorrect.. don't you know your own patient?")
+            console.print("\n[bold red]Incorrect..[/] don't you know your own patient?\n")
+            time.sleep(1)
             player.hearts -= 1
-            print(f'You currently have {player.hearts} hearts')
+            print(f'You currently have {player.hearts} hearts\n\n')
 
         
         if player.xp >= player.xpToLevelUp():
             player.level += 1
-            print("You've leveled up!")
-    
-        saveGame = input('would you like to save the game?')
-        if saveGame == 'yes':
-            Game.saveGame(player, patients, quizzes)
+            console.print("You've leveled up! Moving on to the next patient!")
+            time.sleep(1)
+        else:
+            console.print("Moving on to the next question...\n")
+            time.sleep(1)
         
         if player.hearts <= 0:
             lose()
             
-        patient.printProfile()
         
 # Execute when player loses (10 Hearts gone)
 def lose():
-    print("Your patient is dead. You should've paid more attention.")
+    print("Your patient is dead. You should've paid more attention :wilted_flower:")
     exit()
 
 # Function to print intro
@@ -339,20 +369,6 @@ def printInfo():
     time.sleep(1)
     print('\n')
 
-#     print("""
-# # ***********************************************************************************************************************************************************************
-# # Program: bloodydoctor.py
-# # Course: CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN
-# # Lecture / Lab Section: TC4L
-# # Trimester: 2430
-# # Names: ALEESSA BATRISYIA BINTI AZWAN | NUR ALYA IMAN BINTI MOHD PAZLI YUSOF | NUR DAMIA' BATRISYIA BINTI MOHAMMAD DENEE ROSDI | QAISARAH BINTI SHAMSUL AZRAN
-# # IDs:  |  | 242FC243Y5 | 242FC243DY
-# # Emails:  | |  NUR.DAMIA.BATRISYIA@student.mmu.edu.my | QAISARAH.SHAMSUL.AZRAN@student.mmu.edu.my
-# # ************************************************************************************************************************************************************************  
-#     """)
-    
-
-
 # Quiz section
 questionSet1 = [
     {
@@ -371,10 +387,10 @@ questionSet1 = [
     },
     {
         'question' : "What is your patient's blood type?",
-        'answer' : 'B',
-        'answerChoices' : ['B', 'A', 'AB', 'O'],
+        'answer' : 'C',
+        'answerChoices' : ['B+', 'A-', 'AB-', 'O+'],
         'revealedInfo' : 'blood_type',
-        'hint' : 'This blood type is rare. Only 6% of population has it.'
+        'hint' : 'The rarest blood type.'
     },
     {
         'question' : "Does your patient have any allergy?",
@@ -555,7 +571,11 @@ printInfo()
 # Check for saved file
 if os.path.exists('player.json'):
     loadFile = inputYesNo('Would you like to load your saved game?')
+    
     if loadFile:
+        console.print('\n[green]Loading saved game...[/]\n')
+        time.sleep(2.5)
+        
         # Create instances using saved data
         player = Game.loadPlayer()
         quizzes = []
@@ -571,10 +591,16 @@ if os.path.exists('player.json'):
         
         # Start level starting from current patient
         for i in range(len(patients)):
-            startLevel(patients[i], quizzes[i])
+            startLevel(patients[i], quizzes[i])        
+            saveGame = inputYesNo('would you like to save the game?')
+            if saveGame:
+                Game.saveGame(player, patients, quizzes)
     else:       
+        console.print('\n[green]Creating new game...[/]\n')
+        time.sleep(2.5)
+        
         # Create Patient instances using new data   
-        patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter', isRevealedAge=False)
+        patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Fatigue', 'AB-', 'peanut butter', isRevealedAge=False)
         patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
         patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses')
         patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
@@ -594,10 +620,12 @@ if os.path.exists('player.json'):
         # Get player's name and create player instance
         name = console.input("Hi there! Mind telling us your name? : ").capitalize()
         player = Player(name, xp=0, level=1, hearts=10)
+        Game.saveGame(player, patients, quizzes)
+        
         printIntro(player.name) # INTRO
 else:
     # Create Patient instances using new data   
-    patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Slight dizziness', 'A', 'peanut butter', isRevealedAge=False)
+    patient1 = Patient('Moana binti Drake', 12, 'Anemia', 'Fatigue', 'AB-', 'peanut butter', isRevealedAge=False)
     patient2 = Patient('Baby Boss', 1, 'Head concussion', 'Vomiting', 'O+', 'Eggs')
     patient3 = Patient('Jaehyun bin Jamal', 27, 'Iron deficiency', 'Pale skin', 'B-', 'Roses')
     patient4 = Patient('Sunghoon', 45, 'Acute appendictitis', 'Lack of appetite', 'AB-', 'None')
@@ -615,7 +643,7 @@ else:
     quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
     
     # Get player's name and create player instance
-    name = input("Hi there! Mind telling us your name? : ").capitalize()
+    name = input("Hi there! Mind telling us your name? : ").title()
     player = Player(name, xp=0, level=1, hearts=10)
     printIntro(player.name) # INTRO
 
