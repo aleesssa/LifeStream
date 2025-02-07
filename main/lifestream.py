@@ -679,3 +679,11 @@ for i in range(len(patients)):
         console.print('[bold red]Exiting...[/]')
         time.sleep(2)
         exit()
+        
+console.print('[green bold]Congratulations![/] You\'ve managed to save all 5 patients! Here is a reward for you! :1st_place_medal:')
+time.sleep(2)
+print('\n')
+player.printStatus()
+time.sleep(2)
+console.print('[blue bold]Game ending..')
+time.sleep(2)
