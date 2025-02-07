@@ -1,40 +1,16 @@
 import os
 import json
 import random
-from textual import on
-from textual.app import App, ComposeResult
-from textual.containers import Container, Horizontal
-from textual.widgets import Input, Label, Footer, Header, Static
+import time
+
+from rich.console import Console
+from rich.table import Table
+from rich.padding import Padding
 
 from minigames.crossword import CrosswordPuzzle
 from minigames.tictactoe import tictactoe
 from minigames.wordsearch import WordSearchV2
 
-class BloodyDoctor(App):
-    TITLE = "BLOODY DOCTOR"
-    SUB_TITLE = "Roleplay as a doctor and save patients!"
-    CSS_PATH = "style.tcss"
-    BINDINGS = [('d', 'toggle_dark', 'Toggle dark mode')]
-    
-    def compose(self) -> ComposeResult:
-        # Create child widget for the app
-        yield Header()
-        yield Footer()
-        yield Container(
-            Label("Hi, there! Mind telling us your name?"),
-            Input(placeholder="Enter your name"),
-            id="name"
-        )
-    
-    def action_toggle_dark(self) -> None:
-        self.theme = (
-            'textual-dark' if self.theme == 'textual-light' else 'textual-light'
-        )
-        
-if __name__ == '__main__':
-    app = BloodyDoctor()
-    app.run()
-    
 class Player:
     def __init__(self, name, level, xp, hearts):
         self.name = name
@@ -170,7 +146,7 @@ class Quiz:
         return Quiz(questionSet, xp)
 
 class Game:
-    games = ['Word search', 'Crossword', 'TicTacToe']
+    games = ['Word search', 'Crossword', 'TicTacToe', 'Speed Quiz', 'Scramble Word', 'Decryptify', '']
     
     # Display game options
     @classmethod
@@ -237,10 +213,32 @@ class Game:
             
         return quiz
     
+# Validate user's inputs
+def inputYesNo(string):
+    user_input = console.input(f"{string} Enter [green bold]Yes[/] or [red bold]No[/] (or [green bold]y[/]/[red bold]n[/]): ").lower()
+
+    while user_input not in ['yes', 'no', 'y', 'n']:
+        user_input = console.input(f"{string} Please enter 'yes', 'no', 'y', or 'n': ").lower()
+
+    if user_input in ['yes', 'y']:
+        return True
+    elif user_input in ['no', 'n']:
+        return False
+    
+def inputInt(string, n):
+    while True:
+        try:
+            user_input = int(input(f"{string} Please enter a number from 1 - {n}: "))
+            if user_input < 1 or user_input > n:
+                print(f'Number out of range! Please enter a number from 1 to {n}')
+            else:
+                return user_input
                 
+        except ValueError:
+            console.print("Please enter an integer! :warning:")
+            continue
 
-
-
+    
 # Function for each level
 def startLevel(patient, quiz):
 
@@ -253,11 +251,11 @@ def startLevel(patient, quiz):
         # Display question to player
         quiz.printQuiz(index)
         
-        hint = input("Would you like to play minigame and get a hint?[yes/no] : ")
+        hint = inputYesNo("Would you like to play minigame and get a hint? ")
         
-        if hint.lower() == "y" or hint.lower() == "yes":
+        if hint:
             Game.printGameOptions()
-            index = int(input(f'Choose the minigame you would like to play![1 - {len(Game.games)}] :'))
+            index = inputInt('Choose the minigame you would like to play!', len(Game.games))
             Game.executeGame(index)
             quiz.printQuiz(index)
             
@@ -307,17 +305,51 @@ Here comes your first patient~
 
 # Function to print course and students info
 def printInfo():
-    print("""
-# ***********************************************************************************************************************************************************************
-# Program: bloodydoctor.py
-# Course: CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN
-# Lecture / Lab Section: TC4L
-# Trimester: 2430
-# Names: ALEESSA BATRISYIA BINTI AZWAN | NUR ALYA IMAN BINTI MOHD PAZLI YUSOF | NUR DAMIA' BATRISYIA BINTI MOHAMMAD DENEE ROSDI | QAISARAH BINTI SHAMSUL AZRAN
-# IDs:  |  |  | 242FC243DY
-# Emails:  |  |  | QAISARAH.SHAMSUL.AZRAN@student.mmu.edu.my
-# ************************************************************************************************************************************************************************  
-    """)
+
+        
+    tableInfo = Table(show_header=False, show_lines=True)
+    tableInfo.add_column("Attribute")
+    tableInfo.add_column("Value")
+    
+    tableInfo.add_row('[bold]PROGRAM[/]', 'bloodydoctor.py')
+    tableInfo.add_row('[bold]COURSE[/]', 'CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN')
+    tableInfo.add_row('[bold]LECTURE / LAB SECTION[/]', 'TC4L')
+    tableInfo.add_row('[bold]TRIMESTER[/]', '2430')
+    
+    
+    tableStudents = Table(title="STUDENTS' INFO", show_lines=True)
+
+    tableStudents.add_column("NAME", justify="center", style="cyan", no_wrap=False)
+    tableStudents.add_column("STUDENT ID", style="magenta")
+    tableStudents.add_column("EMAIL", justify="center", style="green")
+
+    tableStudents.add_row("ALEESSA BATRISYIA BINTI AZWAN", "242FC243DD", "ALEESSA.BATRISYIA.AZWAN@student.mmu.edu.my")
+    tableStudents.add_row("NUR ALYA IMAN BINTI MOHD PAZLI YUSOF", "242FC24352", "NUR.ALYA.IMAN@student.mmu.edu.my")
+    tableStudents.add_row("NUR DAMIA' BATRISYIA BINTI MOHAMMAD DENEE ROSDI", "242FC243Y5", "NUR.DAMIA.BATRISYIA@student.mmu.edu.my")
+    tableStudents.add_row("QAISARAH BINTI SHAMSUL AZRAN", "242FC243DY", "QAISARAH.SHAMSUL.AZRAN@student.mmu.edu.my")
+
+    console.print(tableInfo)
+    time.sleep(1)
+    console.print(tableStudents)
+    time.sleep(1)
+    print('\n')
+    
+    console.rule()
+    
+    time.sleep(1)
+    print('\n')
+
+#     print("""
+# # ***********************************************************************************************************************************************************************
+# # Program: bloodydoctor.py
+# # Course: CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN
+# # Lecture / Lab Section: TC4L
+# # Trimester: 2430
+# # Names: ALEESSA BATRISYIA BINTI AZWAN | NUR ALYA IMAN BINTI MOHD PAZLI YUSOF | NUR DAMIA' BATRISYIA BINTI MOHAMMAD DENEE ROSDI | QAISARAH BINTI SHAMSUL AZRAN
+# # IDs:  |  | 242FC243Y5 | 242FC243DY
+# # Emails:  | |  NUR.DAMIA.BATRISYIA@student.mmu.edu.my | QAISARAH.SHAMSUL.AZRAN@student.mmu.edu.my
+# # ************************************************************************************************************************************************************************  
+#     """)
     
 
 
@@ -359,6 +391,7 @@ questionSet1 = [
         'hint' : 'Tired.'
     }
 ]
+
 questionSet2 = [
     {
         'question' : "What happened to Baby Boss?",
@@ -508,19 +541,21 @@ questionSet5 = [
     }
 ]
     
+# Create concole instance for rich
+console = Console()
+console.rule("[bold red]Bloody Doctor")
+
 
 
 # Print students info
 printInfo()
 
-
 # GAME STARTS
-
 
 # Check for saved file
 if os.path.exists('player.json'):
-    loadFile = input('Would you like to load your saved game? [Yes/No] : ')
-    if loadFile.lower() == 'yes' or loadFile.lower() == 'y':
+    loadFile = inputYesNo('Would you like to load your saved game?')
+    if loadFile:
         # Create instances using saved data
         player = Game.loadPlayer()
         quizzes = []
@@ -532,7 +567,7 @@ if os.path.exists('player.json'):
             quizzes.append(Game.loadQuiz(i))
  
         
-        print(f'Welcome back, Dr. {player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
+        console.print(f'Welcome back, Dr. {player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
         
         # Start level starting from current patient
         for i in range(len(patients)):
@@ -557,7 +592,7 @@ if os.path.exists('player.json'):
         quizzes = [quiz1, quiz2,quiz3, quiz4, quiz5]
         
         # Get player's name and create player instance
-        name = input("Hi there! Mind telling us your name? : ").capitalize()
+        name = console.input("Hi there! Mind telling us your name? : ").capitalize()
         player = Player(name, xp=0, level=1, hearts=10)
         printIntro(player.name) # INTRO
 else:
@@ -588,4 +623,3 @@ else:
 for i in range(len(patients)):
     startLevel(patients[i], quizzes[i])
             
-
