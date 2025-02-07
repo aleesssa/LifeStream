@@ -5,5 +5,5 @@ This is a text-based game where you will roleplay as a doctor. You will need to 
 1. Install dependencies
 <pip install -r requirements.txt>
 
-2. From bloodydoctor directory, run python app
-<python .\main\bloodydoctor.py>
+2. From LifeStream directory, run python app
+<python .\main\lifestream.py>
