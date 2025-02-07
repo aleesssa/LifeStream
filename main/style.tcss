@@ -1,9 +1,0 @@
-Screen {
-    align: center middle;
-}
-
-Label{
-    background: blue 50%;
-    border: wide white;
-    width: auto;
-}

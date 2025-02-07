@@ -7,6 +7,7 @@ from rich.console import Console
 from rich.console import group
 from rich.table import Table
 from rich.panel import Panel
+from rich.text import Text
 
 
 from minigames import CrosswordPuzzle
@@ -301,7 +302,8 @@ def startLevel(patient, quiz):
             console.print("\n[bold red]Incorrect..[/] don't you know your own patient?\n")
             time.sleep(1)
             player.hearts -= 1
-            print(f'You currently have {player.hearts} hearts\n\n')
+            console.print(f'You currently have [bold red]{player.hearts} hearts[/]\n\n')
+            continue
 
         
         if player.xp >= player.xpToLevelUp():
@@ -322,22 +324,28 @@ def lose():
     exit()
 
 # Function to print intro
-def printIntro(name):
-    print(f'''
-Hurry, Dr. {name}! 
-The hospital is bustling with patients. 
-You currently have 5 patients under your care.
-Treat your patients by answering questions related to them.
-You can play minigames to acquire hint that will help you answer the question.
-Answering correctly will gain you XP that will help you level up!
-However, if you answer the question wrong, 1 heart will be deducted from your 10 hearts.
-Reaching zero hearts will kill your patient.
-Here comes your first patient~
-''')
+@group()
+def introPanel(name):
+    yield Text(f'Hurry, Dr. {name}!')
+    time.sleep(3)
+    yield Text('The hospital is bustling with patients. ')
+    yield Text('You currently have 5 patients under your care.')
+    yield Text('Treat your patients by answering questions related to them.')
+    yield Text('You can play minigames to acquire hint that will help you answer the question.')
+    yield Text('Answering correctly will gain you XP that will help you level up!')
+    yield Text('However, if you answer the question wrong, 1 heart will be deducted from your 10 hearts.')
+    yield Text('Reaching zero hearts will kill your patient.')
+    yield Text('Here comes your first patient~')
+    
 
+def printIntro(name):
+    console.print(Panel(introPanel(name), title='GAME RULE'), justify='left', width=90)
+    print('\n')
+    time.sleep(1)
+    
+    
 # Function to print course and students info
 def printInfo():
-
         
     tableInfo = Table(show_header=False, show_lines=True)
     tableInfo.add_column("Attribute")
@@ -590,13 +598,7 @@ if os.path.exists('player.json'):
  
         
         console.print(f'Welcome back, Dr. {player.name}! Ready to get back to work? Of course you are ! Let us continue!!!')
-        
-        # Start level starting from current patient
-        for i in range(len(patients)):
-            startLevel(patients[i], quizzes[i])        
-            saveGame = inputYesNo('would you like to save the game?')
-            if saveGame:
-                Game.saveGame(player, patients, quizzes)
+                
     else:       
         console.print('\n[green]Creating new game...[/]\n')
         time.sleep(2.5)
@@ -649,7 +651,15 @@ else:
     player = Player(name, xp=0, level=1, hearts=10)
     printIntro(player.name) # INTRO
 
-
+# Start level starting from current patient
 for i in range(len(patients)):
-    startLevel(patients[i], quizzes[i])
-            
+    startLevel(patients[i], quizzes[i])        
+    saveGame = inputYesNo('Would you like to save the game?')
+    if saveGame:
+        Game.saveGame(player, patients, quizzes)
+    
+    exitGame = inputYesNo('Would you like to exit the game?')
+    if exitGame:
+        console.print('[bold red]Exiting...[/]')
+        time.sleep(2)
+        exit()
