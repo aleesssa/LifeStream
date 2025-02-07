@@ -145,184 +145,184 @@ def longq(x,y):  # similar function to q() but with longpic() function
 
 # functions to execute q() function with different arguments to make different questions
 def q1():
-    point = q('ironman.jpg','IRONMAN')
+    point = q('./minigames/sqStuff/images/ironman.jpg','IRONMAN')
     return point
 def q2():
-    point = q('hulk.jpg','HULK')
+    point = q('./minigames/sqStuff/images/hulk.jpg','HULK')
     return point
 def q3():
-    point = q('hawkeye.jpg','HAWKEYE')
+    point = q('./minigames/sqStuff/images/hawkeye.jpg','HAWKEYE')
     return point
 def q4():
-    point = q('thor.jpg','THOR')
+    point = q('./minigames/sqStuff/images/thor.jpg','THOR')
     return point
 def q5():
-    point = q('spiderman.jpg','SPIDERMAN')
+    point = q('./minigames/sqStuff/images/spiderman.jpg','SPIDERMAN')
     return point
 def qt6():
-    point = longqt('a.png','WEIGH')
+    point = longqt('./minigames/sqStuff/images/a.png','WEIGH')
     return point
 def qt7():
-    point = longqt('b.png','GOOD')
+    point = longqt('./minigames/sqStuff/images/b.png','GOOD')
     return point
 def qt8():
-    point = longqt('c.png','18')
+    point = longqt('./minigames/sqStuff/images/c.png','18')
     return point
 def qt9():
-    point = longqt('d.png','SLEEP')
+    point = longqt('./minigames/sqStuff/images/d.png','SLEEP')
     return point
 def qt10():
-    point = longqt('e.png','ILLNESSES')
+    point = longqt('./minigames/sqStuff/images/e.png','ILLNESSES')
     return point
 def qt11():
-    point = longqt('f.png','MONTHS')
+    point = longqt('./minigames/sqStuff/images/f.png','MONTHS')
     return point
 def qt12():
-    point = longqt('g.png','PREGNANT')
+    point = longqt('./minigames/sqStuff/images/g.png','PREGNANT')
     return point
 def qt13():
-    point = longqt('h.png','DAYS')
+    point = longqt('./minigames/sqStuff/images/h.png','DAYS')
     return point
 def qt14():
-    point = longqt('i.png','HOURS')
+    point = longqt('./minigames/sqStuff/images/i.png','HOURS')
     return point
 def qt15():
-    point = longqt('j.png','HETERO')
+    point = longqt('./minigames/sqStuff/images/j.png','HETERO')
     return point
 def qt16():
-    point = longqt('k.png','DRUG')
+    point = longqt('./minigames/sqStuff/images/k.png','DRUG')
     return point
 def qt17():
-    point = longqt('l.png','MONTHS')
+    point = longqt('./minigames/sqStuff/images/l.png','MONTHS')
     return point
 def qt18():
-    point = longqt('m.png','YEARS')
+    point = longqt('./minigames/sqStuff/images/m.png','YEARS')
     return point
 def qt19():
-    point = longqt('n.png','NOT')
+    point = longqt('./minigames/sqStuff/images/n.png','NOT')
     return point
 def qt20():
-    point = longqt('o.png','IDENTIFICATION')
+    point = longqt('./minigames/sqStuff/images/o.png','IDENTIFICATION')
     return point
 def q21():
-    point = q('chongwei.jpg','LEECHONGWEI')
+    point = q('./minigames/sqStuff/images/chongwei.jpg','LEECHONGWEI')
     return point
 def q22():
-    point = q('nicol.png','NICOLANNDAVID')
+    point = q('./minigames/sqStuff/images/nicol.png','NICOLANNDAVID')
     return point
 def q23():
-    point = q('neelofa.jpg','NEELOFA')
+    point = q('./minigames/sqStuff/images/neelofa.jpg','NEELOFA')
     return point
 def q24():
-    point = q('siti.jpg','SITINURHALIZA')
+    point = q('./minigames/sqStuff/images/siti.jpg','SITINURHALIZA')
     return point
 def q25():
-    point = q('zizan.jpg','ZIZANRAZAK')
+    point = q('./minigames/sqStuff/images/zizan.jpg','ZIZANRAZAK')
     return point
 def q26():
-    point = longq('sarawak.jpg','SARAWAK')
+    point = longq('./minigames/sqStuff/images/sarawak.jpg','SARAWAK')
     return point
 def q27():
-    point = longq('sabah.jpg','SABAH')
+    point = longq('./minigames/sqStuff/images/sabah.jpg','SABAH')
     return point
 def q28():
-    point = longq('terengganu.png','TERENGGANU')
+    point = longq('./minigames/sqStuff/images/terengganu.png','TERENGGANU')
     return point
 def q29():
-    point = longq('kelantan.jpg','KELANTAN')
+    point = longq('./minigames/sqStuff/images/kelantan.jpg','KELANTAN')
     return point
 def q30():
-    point = longq('pahang.png','PAHANG')
+    point = longq('./minigames/sqStuff/images/pahang.png','PAHANG')
     return point
 def q31():
-    point = longq('johor.jpg','JOHOR')
+    point = longq('./minigames/sqStuff/images/johor.jpg','JOHOR')
     return point
 def q32():
-    point = longq('melaka.png','MELAKA')
+    point = longq('./minigames/sqStuff/images/melaka.png','MELAKA')
     return point
 def q33():
-    point = longq('selangor.jpg','SELANGOR')
+    point = longq('./minigames/sqStuff/images/selangor.jpg','SELANGOR')
     return point
 def q34():
-    point = longq('perak.jpg','PERAK')
+    point = longq('./minigames/sqStuff/images/perak.jpg','PERAK')
     return point
 def q35():
-    point = longq('kedah.jpg','KEDAH')
+    point = longq('./minigames/sqStuff/images/kedah.jpg','KEDAH')
     return point
 def q36():
-    point = longq('perlis.jpg','PERLIS')
+    point = longq('./minigames/sqStuff/images/perlis.jpg','PERLIS')
     return point
 def q37():
-    point = q('snoopy.png','SNOOPY')
+    point = q('./minigames/sqStuff/images/snoopy.png','SNOOPY')
     return point
 def q38():
-    point = q('mrbean.jpg','MRBEAN')
+    point = q('./minigames/sqStuff/images/mrbean.jpg','MRBEAN')
     return point
 def q39():
-    point = q('phineas.jpg','PHINEAS')
+    point = q('./minigames/sqStuff/images/phineas.jpg','PHINEAS')
     return point
 def q40():
-    point = q('shrek.jpg','SHREK')
+    point = q('./minigames/sqStuff/images/shrek.jpg','SHREK')
     return point
 def q41():
-    point = q('garfield.jpg','GARFIELD')
+    point = q('./minigames/sqStuff/images/garfield.jpg','GARFIELD')
     return point
 def q42():
-    point = q('mickey.jpg','MICKEY')
+    point = q('./minigames/sqStuff/images/mickey.jpg','MICKEY')
     return point
 def q43():
-    point = q('doraemon.jpg','DORAEMON')
+    point = q('./minigames/sqStuff/images/doraemon.jpg','DORAEMON')
     return point
 def q44():
-    point = q('kwangsoo.jpg','KWANGSOO')
+    point = q('./minigames/sqStuff/images/kwangsoo.jpg','KWANGSOO')
     return point
 def q45():
-    point = q('pikachu.jpg','PIKACHU')
+    point = q('./minigames/sqStuff/images/pikachu.jpg','PIKACHU')
     return point
 def q46():
-    point = q('byeonwooseok.jpg','BYEONWOOSEOK')
+    point = q('./minigames/sqStuff/images/byeonwooseok.jpg','BYEONWOOSEOK')
     return point
 def q47():
-    point = q('kimjiwon.jpg','KIMJIWON')
+    point = q('./minigames/sqStuff/images/kimjiwon.jpg','KIMJIWON')
     return point
 def q48():
-    point = q('jennie.jpg','JENNIE')
+    point = q('./minigames/sqStuff/images/jennie.jpg','JENNIE')
     return point
 def q49():
-    point = q('gongyoo.jpg','GONGYOO')
+    point = q('./minigames/sqStuff/images/gongyoo.jpg','GONGYOO')
     return point
 def q50():
-    point = q('p.png','9.8')
+    point = q('./minigames/sqStuff/images/p.png','9.8')
     return point
 def q51():
-    point = q('q.png','9')
+    point = q('./minigames/sqStuff/images/q.png','9')
     return point
 def q52():
-    point = q('r.png','110')
+    point = q('./minigames/sqStuff/images/r.png','110')
     return point
 def q53():
-    point = q('s.png','14')
+    point = q('./minigames/sqStuff/images/s.png','14')
     return point
 def q54():
-    point = q('t.png','2')
+    point = q('./minigames/sqStuff/images/t.png','2')
     return point
 def q55():
-    point = q('emmawatson.jpg','EMMAWATSON')
+    point = q('./minigames/sqStuff/images/emmawatson.jpg','EMMAWATSON')
     return point
 def q56():
-    point = q('ryanreynolds.jpg','RYANREYNOLDS')
+    point = q('./minigames/sqStuff/images/ryanreynolds.jpg','RYANREYNOLDS')
     return point
 def q57():
-    point = q('zendaya.jpg','ZENDAYA')
+    point = q('./minigames/sqStuff/images/zendaya.jpg','ZENDAYA')
     return point
 def q58():
-    point = q('jackiechan.jpg','JACKIECHAN')
+    point = q('./minigames/sqStuff/images/jackiechan.jpg','JACKIECHAN')
     return point
 def q59():
-    point = q('taylorswift.jpg','TAYLORSWIFT')
+    point = q('./minigames/sqStuff/images/taylorswift.jpg','TAYLORSWIFT')
     return point
 def q60():
-    point = q('u.png','-3')
+    point = q('./minigames/sqStuff/images/u.png','-3')
     return point
 
 def reward():  # function to give hint to user if points are enough
